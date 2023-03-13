@@ -1,4 +1,5 @@
 import { Button, Stack } from "@mui/material"
+import axios from "axios";
 import { FC, useState } from "react"
 import { ResultsTable } from "../components/ResultsTable";
 
@@ -7,10 +8,34 @@ export const Home: FC = () => {
   const [selectedFile, setSelectedFile] = useState();
 
   const handleFileUpload = (event:any) => {
-    const files = event.target.files;
-    setSelectedFile(event.target.files);
-    
+    const file = event.target.files[0];
+    setSelectedFile(file);
+
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Append the file to the form data
+    formData.append('file', file);
+
+    axios.post(`http://127.0.0.1:5000/run?filename=${file}`, formData)
+    .then((response) => {
+      // Handle the response here
+      console.log(response);
+    })
+    .catch((error) => {
+      // Handle errors here
+      console.error(error);
+    });
   };
+
+    // axios.get(`http://127.0.0.1:5000/run?filename=${files[0].name}`)
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    
 
   
 
