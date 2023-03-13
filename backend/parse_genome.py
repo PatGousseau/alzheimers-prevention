@@ -3,12 +3,12 @@ from backend.risk_data import LOOKUP, APOE4
 
 
 class AlzheimerRiskProfiler:
-    def __init__(self, filename):
+    def __init__(self, file):
         """
         Profile a user's 23andMe raw data (as a text file) for Alzheimer's risk
         :param str filename: Path to the 23andMe .txt file 
         """
-        self.filename = filename
+        self.file = file
         
         self.risk_increase = 0  # Overall risk increaase
         self.risk_factors = [] # All risk factors
@@ -78,7 +78,7 @@ class AlzheimerRiskProfiler:
         :return: Overall risk increase as a percentage (float)
         """
 
-        with open(self.filename, 'r') as f:
+        with open(self.file, 'rb') as f:
             line = True
             i = 0
             while line:

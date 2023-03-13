@@ -4,13 +4,13 @@ from parse_genome import AlzheimerRiskProfiler
 
 app = Flask(__name__)
 
-@app.route('/run')
+@app.route('/run', methods=['POST'])
 def run():
-    filename = request.args.get('filename')
-    if not filename:
-        return 'Error: filename parameter missing'
+    file = request.files['file']
+    if not file:
+        return 'Error: file missing!'
 
-    profiler = AlzheimerRiskProfiler(filename)
+    profiler = AlzheimerRiskProfiler(file)
     profiler.get_risk()
 
     ret = dict(
