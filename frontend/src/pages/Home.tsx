@@ -8,12 +8,12 @@ export const Home: FC = () => {
   const [selectedFile, setSelectedFile] = useState();
 
   const handleFileUpload = async (event:any) => {
-    // const file = event.target.files[0];
-    // setSelectedFile(file);
+    const file = event.target.files[0];
+    setSelectedFile(file);
 
     // Create a new FormData object
     const formData = new FormData();
-    const file = new Blob([event.target.files[0]], { type: 'text/csv' });
+
     // Append the file to the form data
     formData.append('file', file);
     await axios.post(`http://127.0.0.1:5000/run`, formData)
