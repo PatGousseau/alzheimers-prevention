@@ -13,6 +13,8 @@ class AlzheimerRiskProfiler:
         self.risk_increase = 0  # Overall risk increaase
         self.risk_factors = [] # All risk factors
 
+        self.rs429358 = None
+        self.rs7412 = None
         self.apoe4genotype = 'Unknown'
         
 
@@ -77,42 +79,41 @@ class AlzheimerRiskProfiler:
         Checks against a database of known risk multipliers and the risk multipliers from various APOE4 combinations.
         :return: Overall risk increase as a percentage (float)
         """
-        line = True
+
         i = 0
-        while line:
-            print(i)
-            line = str(self.file.readline())
+        lines = self.file.readlines()
 
-            # Continue to the next line if not in RSID of interest
-            if not line.startswith('rs'):
-                i += 1
-                continue
+        genome_dict = {}
+        for line in lines:
+            line = line.decode('utf-8')
+            if line.startswith('rs'):
+                rsid, chromosome, position, genotype = line.split()
+                genome_dict[rsid] = genotype
 
-            rsid, chromosome, position, genotype = line.split()
 
-            # Get multiplier if in RSID of interest
-            if rsid in LOOKUP:
-                risk_change = self.get_other_risk(rsid, genotype)
+        # Get multiplier for each RSID
+        for rsid in LOOKUP:
+            try:
+                user_genotype = genome_dict[rsid]
+                risk_change = self.get_other_risk(rsid, user_genotype)
+            except KeyError:
+                risk_change = None
 
-                if risk_change is not None:
-                    self.increment_risk(risk_change)
-                    
-                    self.risk_factors.append((rsid, risk_change, genotype))
+            if risk_change is not None:
+                self.increment_risk(risk_change)
+                
+                self.risk_factors.append((rsid, risk_change, genotype))
 
-            # Get APOE4-specific genotypes 
-            if rsid == 'rs429358':
-                rs429358 = genotype
-
-            if rsid == 'rs7412':
-                rs7412 = genotype
-
-            i += 1
+        # Get APOE4-specific genotypes 
+        self.rs429358 = genome_dict['rs429358']
+        self.rs7412 = genome_dict['rs7412']
 
         # Get APOE4 risk and allele type
-        apoe4_mult = self.get_apoe4_risk(rs429358, rs7412)
-
+        apoe4_mult = self.get_apoe4_risk(self.rs429358, self.rs7412)
+        
         # Multiply by APOE4 risk
-        self.increment_risk(apoe4_mult)
+        if apoe4_mult is not None:
+            self.increment_risk(apoe4_mult)
         
 
 if __name__ == '__main__':    
