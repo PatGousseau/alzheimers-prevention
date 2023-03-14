@@ -7,7 +7,7 @@ export const Home: FC = () => {
 
   const [selectedFile, setSelectedFile] = useState();
 
-  const handleFileUpload = (event:any) => {
+  const handleFileUpload = async (event:any) => {
     const file = event.target.files[0];
     setSelectedFile(file);
 
@@ -16,16 +16,18 @@ export const Home: FC = () => {
 
     // Append the file to the form data
     formData.append('file', file);
-
-    axios.post(`http://127.0.0.1:5000/run?filename=${file}`, formData)
+    console.log("1")
+    await axios.post(`http://127.0.0.1:5000/run`, formData)
     .then((response) => {
       // Handle the response here
+      console.log("allo")
       console.log(response);
     })
     .catch((error) => {
       // Handle errors here
       console.error(error);
     });
+    console.log("2")
   };
 
     // axios.get(`http://127.0.0.1:5000/run?filename=${files[0].name}`)
