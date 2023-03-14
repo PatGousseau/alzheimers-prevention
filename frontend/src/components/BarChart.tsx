@@ -10,7 +10,7 @@ export const AlzheimersBarChart: FC<Props> = ({ affectSize }) => {
 
   return (
     <BarChart width={40} height={70} data={data}>
-      <Bar dataKey="value" fill={affectSize >= 0 ? "#32CD32" : "#FF0000"} />
+      <Bar dataKey="value" fill={affectSize >= 0 ? "#FF0000": "#32CD32"} />
     </BarChart>
   );
 };

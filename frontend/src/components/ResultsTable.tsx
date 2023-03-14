@@ -24,7 +24,7 @@ export const ResultsTable: FC<ResultsProps> = ({ data }) => {
           <TableRow>
             <TableCell>Location</TableCell>
             <TableCell>Genotype</TableCell>
-            <TableCell>Affect Size&nbsp;</TableCell>
+            <TableCell>Effect Size&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
