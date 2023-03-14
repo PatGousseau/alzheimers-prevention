@@ -1,5 +1,5 @@
 import argparse 
-from backend.risk_data import LOOKUP, APOE4
+from risk_data import LOOKUP, APOE4
 
 
 class AlzheimerRiskProfiler:
@@ -77,34 +77,36 @@ class AlzheimerRiskProfiler:
         Checks against a database of known risk multipliers and the risk multipliers from various APOE4 combinations.
         :return: Overall risk increase as a percentage (float)
         """
+        line = True
+        i = 0
+        while line:
+            print(i)
+            line = str(self.file.readline())
 
-        with open(self.file, 'rb') as f:
-            line = True
-            i = 0
-            while line:
-                line = f.readline()
+            # Continue to the next line if not in RSID of interest
+            if not line.startswith('rs'):
+                i += 1
+                continue
 
-                # Continue to the next line if not in RSID of interest
-                if not line.startswith('rs'):
-                    continue
+            rsid, chromosome, position, genotype = line.split()
 
-                rsid, chromosome, position, genotype = line.split()
+            # Get multiplier if in RSID of interest
+            if rsid in LOOKUP:
+                risk_change = self.get_other_risk(rsid, genotype)
 
-                # Get multiplier if in RSID of interest
-                if rsid in LOOKUP:
-                    risk_change = self.get_other_risk(rsid, genotype)
+                if risk_change is not None:
+                    self.increment_risk(risk_change)
+                    
+                    self.risk_factors.append((rsid, risk_change, genotype))
 
-                    if risk_change is not None:
-                        self.increment_risk(risk_change)
-                        
-                        self.risk_factors.append((rsid, risk_change, genotype))
+            # Get APOE4-specific genotypes 
+            if rsid == 'rs429358':
+                rs429358 = genotype
 
-                # Get APOE4-specific genotypes 
-                if rsid == 'rs429358':
-                    rs429358 = genotype
+            if rsid == 'rs7412':
+                rs7412 = genotype
 
-                if rsid == 'rs7412':
-                    rs7412 = genotype
+            i += 1
 
         # Get APOE4 risk and allele type
         apoe4_mult = self.get_apoe4_risk(rs429358, rs7412)
