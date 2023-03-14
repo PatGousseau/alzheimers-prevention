@@ -45,7 +45,7 @@ class AlzheimerRiskProfiler:
         except KeyError:
             return None
 
-    def get_other_risk(self, rsid: str, user_genotype) -> float:
+    def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
         """
         Get risk given a known risk multiplying genetic factor RSID and the client's genotype.
         :param str rsid: RSID of interest
@@ -95,13 +95,12 @@ class AlzheimerRiskProfiler:
         for rsid in LOOKUP:
             try:
                 user_genotype = genome_dict[rsid]
-                risk_change = self.get_other_risk(rsid, user_genotype)
+                risk_change = self.get_risk_from_rsid(rsid, user_genotype)
             except KeyError:
                 risk_change = None
 
             if risk_change is not None:
                 self.increment_risk(risk_change)
-                
                 self.risk_factors.append((rsid, risk_change, genotype))
 
         # Get APOE4-specific genotypes 
@@ -109,11 +108,12 @@ class AlzheimerRiskProfiler:
         self.rs7412 = genome_dict['rs7412']
 
         # Get APOE4 risk and allele type
-        apoe4_mult = self.get_apoe4_risk(self.rs429358, self.rs7412)
+        risk_change = self.get_apoe4_risk(self.rs429358, self.rs7412)
         
         # Multiply by APOE4 risk
-        if apoe4_mult is not None:
-            self.increment_risk(apoe4_mult)
+        if risk_change is not None:
+            self.increment_risk(risk_change)
+            self.risk_factors.append(('{rs429358/rs7412', risk_change, f'{self.rs429358}/{self.rs7412}'))
         
 
 if __name__ == '__main__':    
