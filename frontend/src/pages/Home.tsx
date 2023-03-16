@@ -16,7 +16,7 @@ export const Home: FC = () => {
 
     // Append the file to the form data
     formData.append('file', file);
-    await axios.post(`http://127.0.0.1:5000/run`, formData)
+    await axios.post(`http://0.0.0.0:8080/run`, formData)
     .then((response) => {
       // Handle the response here
       console.log(response);
