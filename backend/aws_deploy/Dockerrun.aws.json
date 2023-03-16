@@ -1,0 +1,13 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "625218769979.dkr.ecr.us-east-1.amazonaws.com/lubav-backend:latest",
+      "Update": "true"
+    },
+    "Ports": [
+      {
+        "ContainerPort": 8080,
+        "HostPort": 8080
+      }
+    ]
+  }

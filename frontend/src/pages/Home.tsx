@@ -19,9 +19,10 @@ export const Home: FC = () => {
 
     // send file to backend
     const formData = new FormData();
+
     formData.append("file", file);
     await axios
-      .post(`http://127.0.0.1:5000/run`, formData)
+      .post(`http://0.0.0.0:5000/run`, formData)
       .then(async (response) => {
         await setGeneData(response.data);
         setGeneData((prevState) => ({

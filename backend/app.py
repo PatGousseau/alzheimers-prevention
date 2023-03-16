@@ -1,10 +1,14 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS
 
 from parse_genome import AlzheimerRiskProfiler
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://0.0.0.0:3000"}})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/run', methods=['POST'])
 def run():
