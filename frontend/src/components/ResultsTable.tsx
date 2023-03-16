@@ -1,12 +1,6 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { FC } from "react";
-import { AlzheimersBarChart } from "./BarChart";
+import { Button, Paper, Grid, styled } from "@mui/material";
+import axios from "axios";
+import { FC, useState } from "react";
 
 export interface ResultsProps {
   data: {
@@ -16,34 +10,34 @@ export interface ResultsProps {
   };
 }
 
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 export const ResultsTable: FC<ResultsProps> = ({ data }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Location</TableCell>
-            <TableCell>Genotype</TableCell>
-            <TableCell>Effect Size&nbsp;</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.risk_factors.map(([location, affectSize, genotype]) => (
-            <TableRow
-              key={genotype}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {location}
-              </TableCell>
-              <TableCell>{genotype}</TableCell>
-              <TableCell>
-                <AlzheimersBarChart affectSize={affectSize} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Grid container spacing={2} justifyContent="center">
+    {data.risk_factors.map(([location, affectSize, genotype]) => (
+      <Grid item key={location} xs={12}>
+        <Item>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={4}>
+              {location}
+            </Grid>
+            <Grid item xs={4}>
+              {affectSize}
+            </Grid>
+            <Grid item xs={4}>
+              {genotype}
+            </Grid>
+          </Grid>
+        </Item>
+      </Grid>
+    ))}
+  </Grid>
   );
 };
