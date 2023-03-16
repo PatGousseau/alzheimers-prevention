@@ -12,21 +12,11 @@ export const Header: FC = () => {
 
     return (
         <Box sx={{ flexGrow: 1, paddingBottom:4}}>
-          <AppBar position="static">
+          <AppBar position="static" style={{ background: '#2C2C2C' }}>
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Alzheimer's Risk Profile
               </Typography>
-              <Button color="primary">Login</Button>
             </Toolbar>
           </AppBar>
         </Box>
