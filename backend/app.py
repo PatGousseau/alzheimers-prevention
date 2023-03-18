@@ -36,7 +36,8 @@ def analyze_genetics():
         apoe_risk_ratio=profiler.apoe_risk_ratio,
         risk_ratio=profiler.risk_ratio,
         apoe_genotype=profiler.apoe_genotype,
-        risk_factors=profiler.risk_factors
+        risk_factors=profiler.risk_factors,
+        apoe_risk_factors=profiler.apoe_risk_factors,
     )
     return ret
 

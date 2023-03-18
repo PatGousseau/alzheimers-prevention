@@ -13,7 +13,8 @@ class AlzheimerRiskProfiler:
         self.apoe_risk_ratio = 1
         self.risk_ratio = 1
 
-        self.risk_factors = [] # All risk factors
+        self.risk_factors = [] # APOE-independent risk factors
+        self.apoe_risk_factors = []  # APOE-related risk factors
 
         self.rs429358 = None
         self.rs7412 = None
@@ -34,18 +35,34 @@ class AlzheimerRiskProfiler:
 
     def get_apoe_modifiers(self, genome_dict):
         
-        if genome_dict['rs2075650'] == 'AA':
-            self.risk_factors.append(('rs2075650', 'Neutralizes APOE4', 'AA'))
-            self.apoe_related_risk_ratio = 1
+        # rs2075650 and rs4420638
+        for rsid, gene_name in zip(['rs2075650', 'rs4420638'], ['TOMM40', ['APOC1']]):
+            risk_ratio = 1
+            if genome_dict[rsid] == 'AA':
+                self.apoe_related_risk_ratio = 1
+                risk_ratio = 'Neutralizes APOE'
 
-        if genome_dict['rs4420638'] == 'AA':
-            self.risk_factors.append(('rs2075650', 'Neutralizes APOE4', 'AA'))
-            self.apoe_related_risk_ratio = 1
+            self.apoe_risk_factors.append(dict(
+                variant=rsid,
+                risk_ratio=risk_ratio,
+                genotype=genome_dict[rsid],
+                gene_name=gene_name,
+                significance=1.00e-300,
+                ))
 
+        # rs9536314
+        risk_ratio = 1
         if (genome_dict['rs9536314'] == 'GT' or genome_dict['rs9536314'] == 'TG') and self.apoe_genotype == 'E3/E4':
-            risk_ratio = 0.7
-            self.risk_factors.append(('rs2075650', risk_ratio, 'GT'))
             self.apoe_related_risk_ratio = self.apoe_related_risk_ratio * risk_ratio
+            risk_ratio = 0.7
+
+        self.apoe_risk_factors.append(dict(
+            variant='rs9536314',
+            risk_ratio=risk_ratio,
+            genotype='GT',
+            gene_name='KLOTHO',
+            significance=1.00e-300,
+            ))
 
     
     def get_apoe_risk(self, genome_dict):
@@ -65,11 +82,11 @@ class AlzheimerRiskProfiler:
             self.apoe_risk_ratio = apoe_risk_ratio
 
             # Append risk factor information to running list
-            self.risk_factors.append(dict(
+            self.apoe_risk_factors.append(dict(
                 variant='rs429358/rs7412',
                 risk_ratio=apoe_risk_ratio,
-                genotype=f"{genome_dict['rs429358']}/{genome_dict['rs7412']}",
-                gene_name='APOE4/APOE2',
+                genotype=apoe_genotype,
+                gene_name='APOE',
                 significance=1.00e-300,
             ))
 
@@ -169,6 +186,10 @@ if __name__ == '__main__':
     profiler = AlzheimerRiskProfiler(file)
     profiler.get_risk()
     
+    print('APOE-related risk factors:')
+    for risk_factor in profiler.apoe_risk_factors:
+        print(risk_factor)
+    print('APOE-independent risk factors:')
     for risk_factor in profiler.risk_factors:
         print(risk_factor)
     print(f'APOE related risk ratio: {profiler.apoe_risk_ratio}')
