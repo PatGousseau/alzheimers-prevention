@@ -1,5 +1,5 @@
 import argparse 
-from risk_data import LOOKUP, APOE4
+from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS
 
 
 class AlzheimerRiskProfiler:
@@ -10,77 +10,132 @@ class AlzheimerRiskProfiler:
         """
         self.file = file
         
-        self.risk_increase = 0  # Overall risk increaase
+        self.apoe_risk_ratio = 1
+        self.risk_ratio = 1
+
         self.risk_factors = [] # All risk factors
 
         self.rs429358 = None
         self.rs7412 = None
-        self.apoe4genotype = 'Unknown'
+        self.apoe_genotype = 'Unknown'
         
 
-    def increment_risk(self, risk_change):
+    def increment_risk(self, risk_ratio):
         """
         Increment the user's risk.
         :param float risk_change: Change in risk as a percent increase/decrease (e.g. 0.2 for a 20% baseline increase)
         """
-        self.risk_increase =  ((self.risk_increase + 1) * (risk_change + 1)) - 1
+        self.risk_ratio *= risk_ratio
     
     @staticmethod
-    def sort_char_string(s):
+    def sort_char_string(s) -> str:
         """Sort a string's characters"""
         return ''.join(sorted(s))
-    
-    def get_apoe4_risk(self, rs429358: str, rs7412: str) -> float:
-        """
-        Get APOE4 risk based on the two RSIDs.
 
-        :param str rs429358: The rs429358 genotype as a 2-char string.
-        :param str rs7412: The rs7412 genotype as a 2-char string.
-        :return (float, str): Tuple containing the risk multiplier and allele type. 
+    def get_apoe_modifiers(self, genome_dict):
+        
+        if genome_dict['rs2075650'] == 'AA':
+            self.risk_factors.append(('rs2075650', 'Neutralizes APOE4', 'AA'))
+            self.apoe_related_risk_ratio = 1
+
+        if genome_dict['rs4420638'] == 'AA':
+            self.risk_factors.append(('rs2075650', 'Neutralizes APOE4', 'AA'))
+            self.apoe_related_risk_ratio = 1
+
+        if (genome_dict['rs9536314'] == 'GT' or genome_dict['rs9536314'] == 'TG') and self.apoe_genotype == 'E3/E4':
+            risk_ratio = 0.7
+            self.risk_factors.append(('rs2075650', risk_ratio, 'GT'))
+            self.apoe_related_risk_ratio = self.apoe_related_risk_ratio * risk_ratio
+
+    
+    def get_apoe_risk(self, genome_dict):
         """
+        Get APOE risk based on APOE4 and APOE2.
+
+        :param dict genome_dict: 23andme genome as a dictionary
+        :return float: Risk ratio resulting from the APOE combination. 
+        """
+
+        rs429358, rs7412 = genome_dict['rs429358'], genome_dict['rs7412']
         try:
-            risk_change, apoe4genotype = APOE4[f'{rs429358},{rs7412}']
-            self.apoe4genotype = apoe4genotype
-            return risk_change
+            apoe_risk_ratio, apoe_genotype = APOE_RISK_FACTORS[f'{rs429358},{rs7412}']
+
+            # Store base APOE risk 
+            self.apoe_genotype = apoe_genotype
+            self.apoe_risk_ratio = apoe_risk_ratio
+
+            # Append risk factor information to running list
+            self.risk_factors.append(dict(
+                variant='rs429358/rs7412',
+                risk_ratio=apoe_risk_ratio,
+                genotype=f"{genome_dict['rs429358']}/{genome_dict['rs7412']}",
+                gene_name='APOE4/APOE2',
+                significance=1.00e-300,
+            ))
+
         except KeyError:
-            return None
+            return 
+
 
     def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
         """
         Get risk given a known risk multiplying genetic factor RSID and the client's genotype.
         :param str rsid: RSID of interest
-        :param str genotype: Client's genotype for the RSID of interest
-        :return: Risk multiplier as a float
+        :param str user_genotype: User's genotype for the RSID of interest
+        :return: Risk ratio resulting from the variant 
         """
-        risky_genotype = LOOKUP[rsid]['risky_genotype']
+        risky_allele = APOE_INDEPENDENT_RISK_FACTORS[rsid]['minor']
 
-        # Sort in alphabetical order to normalize format
-        user_genotype = self.sort_char_string(user_genotype)
-        risky_genotype = self.sort_char_string(risky_genotype)
-
-        if len(risky_genotype) == 2:
-            if risky_genotype == user_genotype:
-                risk_change = LOOKUP[rsid]['homo'] if user_genotype[0] == user_genotype[1] else LOOKUP[rsid]['hetero']
-            else:
-                risk_change = 1
-        elif len(risky_genotype) == 1:
-            if risky_genotype in user_genotype:
-                risk_change = LOOKUP[rsid]['homo'] if user_genotype[0] == user_genotype[1] else LOOKUP[rsid]['hetero']
-            else:
-                risk_change = None
+        if risky_allele in user_genotype:
+            return APOE_INDEPENDENT_RISK_FACTORS[rsid]['risk_ratio']
         else:
-            raise ValueError(f'Unknown genotype format: {risky_genotype}')
+            return 1
 
-        return risk_change
+    def get_gene_name_from_rsid(self, rsid: str) -> str:
+        """
+        Get a given RSID's nominal designation.
+        :param str rsid: RSID of interest
+        :return: Gene name
+        """
+        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['gene_name']
 
+    def get_significance_from_rsid(self, rsid: str) -> float:
+        """
+        Get the statistical significance of the risk factor of a given variant
+        :param str rsid: RSID of interest
+        :return: Statistical significance
+        """
+        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['gene_name']
 
-    def get_risk(self) -> float:
+    def get_apoe_independent_risk(self, genome_dict):
+        # Get multiplier for each APOE4-independent RSID
+        for rsid in APOE_INDEPENDENT_RISK_FACTORS:
+            try:
+                user_genotype = genome_dict[rsid]
+                risk_ratio = self.get_risk_from_rsid(rsid, user_genotype)
+                gene_name = self.get_gene_name_from_rsid(rsid)
+                significance = self.get_significance_from_rsid(rsid)
+
+                # Increment the overall APOE-independent risk
+                self.increment_risk(risk_ratio)
+
+                # Append risk factor information to running list
+                self.risk_factors.append(dict(
+                    variant=rsid,
+                    risk_ratio=risk_ratio,
+                    genotype=user_genotype,
+                    gene_name=gene_name,
+                    significance=significance,
+                ))
+
+            except KeyError:
+                return
+
+    def get_risk(self):
         """
         Checks against a database of known risk multipliers and the risk multipliers from various APOE4 combinations.
         :return: Overall risk increase as a percentage (float)
         """
-
-        i = 0
         lines = self.file.readlines()
 
         genome_dict = {}
@@ -90,30 +145,11 @@ class AlzheimerRiskProfiler:
                 rsid, chromosome, position, genotype = line.split()
                 genome_dict[rsid] = genotype
 
+        # Get risk from APOE-independent risk factors
+        self.get_apoe_independent_risk(genome_dict)
 
-        # Get multiplier for each RSID
-        for rsid in LOOKUP:
-            try:
-                user_genotype = genome_dict[rsid]
-                risk_change = self.get_risk_from_rsid(rsid, user_genotype)
-            except KeyError:
-                risk_change = None
-
-            if risk_change is not None:
-                self.increment_risk(risk_change)
-                self.risk_factors.append((rsid, risk_change, genotype))
-
-        # Get APOE4-specific genotypes 
-        self.rs429358 = genome_dict['rs429358']
-        self.rs7412 = genome_dict['rs7412']
-
-        # Get APOE4 risk and allele type
-        risk_change = self.get_apoe4_risk(self.rs429358, self.rs7412)
-        
-        # Multiply by APOE4 risk
-        if risk_change is not None:
-            self.increment_risk(risk_change)
-            self.risk_factors.append(('{rs429358/rs7412', risk_change, f'{self.rs429358}/{self.rs7412}'))
+        # Gert risk from APOE-related risk factors
+        self.get_apoe_risk(genome_dict)
         
 
 if __name__ == '__main__':    
@@ -127,12 +163,16 @@ if __name__ == '__main__':
         from tkinter import Tk
         from tkinter.filedialog import askopenfilename
         Tk().withdraw()
-        filepath = askopenfilename()
+        filename = askopenfilename()
     
-    profiler = AlzheimerRiskProfiler(filename)
+    file = open(filename, 'rb')
+    profiler = AlzheimerRiskProfiler(file)
     profiler.get_risk()
     
-    print(f'You have a {profiler.risk_increase * 100}% increase in Alzheimer\'s risk.')
-    print(f'Your APOE4 genotype is {profiler.apoe4genotype}')
+    for risk_factor in profiler.risk_factors:
+        print(risk_factor)
+    print(f'APOE related risk ratio: {profiler.apoe_risk_ratio}')
+    print(f'APOE independent risk ratio of {profiler.risk_ratio}')
+    print(f'Your APOE genotype is {profiler.apoe_genotype}')
         
 
