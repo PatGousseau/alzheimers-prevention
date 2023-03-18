@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Paper, Stack, Grid, styled } from "@mui/material";
 import axios from "axios";
 import { FC, useState } from "react";
 import { ResultsProps, ResultsTable } from "../components/ResultsTable";
@@ -22,7 +22,7 @@ export const Home: FC = () => {
 
     formData.append("file", file);
     await axios
-      .post(`http://0.0.0.0:5000/run`, formData)
+      .post(`http://127.0.0.1:5000/run`, formData)
       .then(async (response) => {
         await setGeneData(response.data);
         setGeneData((prevState) => ({
@@ -46,9 +46,7 @@ export const Home: FC = () => {
           <input hidden multiple type="file" onChange={handleFileUpload} />
         </Button>
       </Stack>
-      <Stack direction="row">
-        {geneData && <ResultsTable data={geneData.data} />}
-      </Stack>
+        <ResultsTable data={geneData.data}/>
     </Stack>
   );
 };
