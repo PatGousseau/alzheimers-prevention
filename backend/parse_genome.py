@@ -68,8 +68,8 @@ class AlzheimerRiskProfiler:
             self.risk_factors.append(dict(
                 variant='rs429358/rs7412',
                 risk_ratio=apoe_risk_ratio,
-                genotype=f"{genome_dict['rs429358']}/{genome_dict['rs7412']}",
-                gene_name='APOE4/APOE2',
+                genotype=apoe_genotype,
+                gene_name='APOE',
                 significance=1.00e-300,
             ))
 
@@ -105,7 +105,7 @@ class AlzheimerRiskProfiler:
         :param str rsid: RSID of interest
         :return: Statistical significance
         """
-        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['gene_name']
+        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['significance']
 
     def get_apoe_independent_risk(self, genome_dict):
         # Get multiplier for each APOE4-independent RSID

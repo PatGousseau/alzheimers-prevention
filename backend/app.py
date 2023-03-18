@@ -4,7 +4,7 @@ from flask_cors import CORS
 from parse_genome import AlzheimerRiskProfiler
 
 app = Flask(__name__)
-CORS(app)#, resources={r"/*": {"origins": "http://0.0.0.0:8080"}})
+CORS(app)#, resources={r"/*": {"origins": "http://0.0.0.0:5000"}})
 
 @app.route('/ping')
 def ping():
