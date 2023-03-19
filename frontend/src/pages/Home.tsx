@@ -1,4 +1,13 @@
-import { Button, Paper, Stack, Grid, styled, Tab, Tabs, Box } from "@mui/material";
+import {
+  Button,
+  Paper,
+  Stack,
+  Grid,
+  styled,
+  Tab,
+  Tabs,
+  Box,
+} from "@mui/material";
 import axios from "axios";
 import { FC, useState } from "react";
 import { ResultsProps, ResultsTable } from "../components/ResultsTable";
@@ -7,9 +16,27 @@ export const Home: FC = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [geneData, setGeneData] = useState<ResultsProps>({
     data: {
-      apoe4genotype: "",
-      risk_factors: [{ gene_name: "", genotype: "", risk_ratio: 0, significance: "", variant: "" }],
-      risk_increase: 0,
+      apoe_genotype: "",
+      apoe_risk_factors: [
+        {
+          gene_name: "",
+          genotype: "",
+          risk_ratio: 0,
+          significance: "",
+          variant: "",
+        },
+      ],
+      apoe_risk_ratio: 0,
+      risk_factors: [
+        {
+          gene_name: "",
+          genotype: "",
+          risk_ratio: 0,
+          significance: "",
+          variant: "",
+        },
+      ],
+      risk_ratio: 0,
     },
   });
 
@@ -25,12 +52,14 @@ export const Home: FC = () => {
       .post(`http://127.0.0.1:5000/api/analyze_genetics`, formData)
       .then(async (response) => {
         await setGeneData(response.data);
-        console.log(response);
+        // console.log(response);
         setGeneData((prevState) => ({
           data: {
-            apoe4genotype: response.data.apoe4genotype,
+            apoe_genotype: response.data.apoe_genotype,
+            apoe_risk_factors: response.data.apoe_risk_factors,
+            apoe_risk_ratio: response.data.apoe_risk_ratio,
             risk_factors: response.data.risk_factors,
-            risk_increase: response.data.risk_increase,
+            risk_ratio: response.data.risk_ratio,
           },
         }));
       })
@@ -41,13 +70,22 @@ export const Home: FC = () => {
 
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleTabChange = (event: React.SyntheticEvent, newTabIndex: number) => {
+  const handleTabChange = (
+    event: React.SyntheticEvent,
+    newTabIndex: number
+  ) => {
     setActiveTab(newTabIndex); // update the active tab index when the tab is changed
   };
 
   return (
     <Stack direction="column" paddingX={16}>
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', justifyContent: 'flex-start' }}>
+      <Box
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+          justifyContent: "flex-start",
+        }}
+      >
         <Tabs value={activeTab} onChange={handleTabChange} centered>
           <Tab label="APOE related" />
           <Tab label="APOE independent" />
@@ -60,8 +98,10 @@ export const Home: FC = () => {
           <input hidden multiple type="file" onChange={handleFileUpload} />
         </Button>
       </Stack>
-      {activeTab === 0 && ( 
-        <ResultsTable data={geneData.data}/>
+      {activeTab === 0 ? (
+        <ResultsTable risk_factors={geneData.data.apoe_risk_factors} risk_ratio={geneData.data.apoe_risk_ratio} risk_type={"Total risk from APOE-related genotypes"} />
+      ) : (
+        <ResultsTable risk_factors={geneData.data.risk_factors} risk_ratio={geneData.data.risk_ratio} risk_type={"Total risk from APOE-independent genotypes"}  />
       )}
     </Stack>
   );
