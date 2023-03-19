@@ -34,22 +34,22 @@ export const ResultsTable = (props: {
   risk_type: string;
 }) => {
   return (
-<Grid container spacing={2} justifyContent="center">
+<Grid container spacing={1} justifyContent="center">
   <Grid item key={0} xs={12}>
     <Grid container spacing={0} justifyContent="center">
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="subtitle1">Variant</Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="subtitle1">Gene Name</Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="subtitle1">Genotype</Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="subtitle1">Significance</Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="subtitle1">Risk Ratio</Typography>
       </Grid>
     </Grid>
@@ -59,26 +59,28 @@ export const ResultsTable = (props: {
       <Item>
         <Grid container spacing={0} justifyContent="center" alignItems="center" padding={0}>
           <Grid item xs={2}>
-            <Typography>{riskFactor.variant}</Typography>
+            <Typography variant="body2">{riskFactor.variant}</Typography>
           </Grid>
           <Grid item xs={2}>
-            <Typography>{riskFactor.gene_name}</Typography>
+            <Typography variant="body2">{riskFactor.gene_name}</Typography>
           </Grid>
           <Grid item xs={2}>
-            <Typography>{riskFactor.genotype}</Typography>
+            <Typography variant="body2">{riskFactor.genotype}</Typography>
           </Grid>
           <Grid item xs={2}>
-            <Typography>{riskFactor.significance}</Typography>
+            <Typography variant="body2">{riskFactor.significance}</Typography>
           </Grid>
           <Grid item xs={2}>
             <Box
               sx={{
+                width: "30%",
+                margin: "0 auto",
                 padding: "0px",
                 backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
-                borderRadius: "10px ",
+                borderRadius: "5px",
               }}
             >
-              <Typography>
+              <Typography variant="body2">
                 {(Math.round(riskFactor.risk_ratio * 100) / 100).toFixed(2)}
               </Typography>
             </Box>
@@ -104,17 +106,19 @@ export const ResultsTable = (props: {
         padding={0}
       >
         <Grid item xs={8}>
-          <Typography style={{ color: "white" }}>{props.risk_type}</Typography>
+          <Typography variant="body2" style={{ color: "white" }}>{props.risk_type}</Typography>
         </Grid>
         <Grid item xs={2}>
           <Box
-            sx={{
-              padding: "0px",
-              backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
-              borderRadius: "10px",
-            }}
+              sx={{
+                width: "30%",
+                margin: "0 auto",
+                padding: "0px",
+                backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
+                borderRadius: "5px",
+              }}
           >
-            <Typography>
+            <Typography variant="body2">
               {(Math.round(props.risk_ratio * 100) / 100).toFixed(2)}
             </Typography>
           </Box>

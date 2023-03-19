@@ -1,23 +1,22 @@
 import './App.css';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
-import { createMuiTheme, ThemeProvider } from '@mui/material';
+import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 
 function App() {
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       background: {
-        default: '#ffffff',
+        default: '#F5F5F5',
       },
     },
   });
   return (
     <ThemeProvider theme={theme}>
-    <div className="App">
+      <GlobalStyles styles={{ body: { backgroundColor: '#F5F5F5' } }} />
       <Header/>
       <Home/>
-    </div>
     </ThemeProvider>
   );
 }
