@@ -78,11 +78,10 @@ export const Home: FC = () => {
   };
 
   return (
-    <Stack direction="column" paddingX={16}>
+    <Stack direction="column" paddingX={32}>
       <Box
         sx={{
           width: "100%",
-          bgcolor: "background.paper",
           justifyContent: "flex-start",
         }}
       >
