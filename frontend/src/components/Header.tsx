@@ -11,12 +11,12 @@ import { FC } from 'react';
 export const Header: FC = () => { 
 
     return (
-        <Box sx={{ flexGrow: 1, paddingBottom:4}}>
+        <Box sx={{ flexGrow: 1}}>
           <AppBar position="static" style={{ background: '#2C2C2C' }}>
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Alzheimer's Risk Profile
-              </Typography>
+              </Typography> */}
             </Toolbar>
           </AppBar>
         </Box>

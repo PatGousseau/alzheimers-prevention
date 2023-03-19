@@ -122,7 +122,7 @@ class AlzheimerRiskProfiler:
         :param str rsid: RSID of interest
         :return: Statistical significance
         """
-        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['gene_name']
+        return APOE_INDEPENDENT_RISK_FACTORS[rsid]['significance']
 
     def get_apoe_independent_risk(self, genome_dict):
         # Get multiplier for each APOE4-independent RSID

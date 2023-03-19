@@ -1,12 +1,22 @@
-import { Button, Paper, Grid, styled } from "@mui/material";
+import { Button, Paper, Grid, styled, Typography, Box } from "@mui/material";
 import axios from "axios";
 import { FC, useState } from "react";
 
+interface RiskFactor {
+  gene_name: string;
+  genotype: string;
+  risk_ratio: number;
+  significance: string;
+  variant: string;
+}
+
 export interface ResultsProps {
   data: {
-    apoe4genotype: string;
-    risk_factors: [string, number, string][];
-    risk_increase: number;
+    apoe_genotype: string;
+    apoe_risk_factors: RiskFactor[];
+    apoe_risk_ratio: number;
+    risk_factors: RiskFactor[];
+    risk_ratio: number;
   };
 }
 
@@ -18,26 +28,101 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const ResultsTable: FC<ResultsProps> = ({ data }) => {
+export const ResultsTable = (props: {
+  risk_factors: RiskFactor[];
+  risk_ratio: number;
+  risk_type: string;
+}) => {
   return (
-    <Grid container spacing={2} justifyContent="center">
-    {data.risk_factors.map(([location, affectSize, genotype]) => (
-      <Grid item key={location} xs={12}>
-        <Item>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs={4}>
-              {location}
-            </Grid>
-            <Grid item xs={4}>
-              {affectSize}
-            </Grid>
-            <Grid item xs={4}>
-              {genotype}
-            </Grid>
-          </Grid>
-        </Item>
+<Grid container spacing={2} justifyContent="center">
+  <Grid item key={0} xs={12}>
+    <Grid container spacing={0} justifyContent="center">
+      <Grid item xs={2}>
+        <Typography variant="subtitle1">Variant</Typography>
       </Grid>
-    ))}
+      <Grid item xs={2}>
+        <Typography variant="subtitle1">Gene Name</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="subtitle1">Genotype</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="subtitle1">Significance</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="subtitle1">Risk Ratio</Typography>
+      </Grid>
+    </Grid>
   </Grid>
+  {props.risk_factors.map((riskFactor) => (
+    <Grid item key={riskFactor.variant} xs={12}>
+      <Item>
+        <Grid container spacing={0} justifyContent="center" alignItems="center" padding={0}>
+          <Grid item xs={2}>
+            <Typography>{riskFactor.variant}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography>{riskFactor.gene_name}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography>{riskFactor.genotype}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography>{riskFactor.significance}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Box
+              sx={{
+                padding: "0px",
+                backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
+                borderRadius: "10px ",
+              }}
+            >
+              <Typography>
+                {(Math.round(riskFactor.risk_ratio * 100) / 100).toFixed(2)}
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Item>
+    </Grid>
+  ))}
+  <Grid item key={0} xs={12} paddingBottom={2}>
+    <Item
+      sx={{
+        backgroundColor: "#2C2C2C",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <Grid
+        container
+        spacing={0}
+        justifyContent="center"
+        alignItems="center"
+        padding={0}
+      >
+        <Grid item xs={8}>
+          <Typography style={{ color: "white" }}>{props.risk_type}</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Box
+            sx={{
+              padding: "0px",
+              backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
+              borderRadius: "10px",
+            }}
+          >
+            <Typography>
+              {(Math.round(props.risk_ratio * 100) / 100).toFixed(2)}
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+    </Item>
+  </Grid>
+</Grid>
+
   );
 };
