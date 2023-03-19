@@ -1,6 +1,9 @@
 import argparse 
 from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS
 
+class NoRiskDetectedError(Exception):
+    def __init__(self):
+        pass
 
 class AlzheimerRiskProfiler:
     def __init__(self, file):
@@ -36,7 +39,7 @@ class AlzheimerRiskProfiler:
     def get_apoe_modifiers(self, genome_dict):
         
         # rs2075650 and rs4420638
-        for rsid, genotype in zip(['rs2075650', 'rs4420638'], ['TOMM40', ['APOC1']]):
+        for rsid, genotype in zip(['rs2075650', 'rs4420638'], ['TOMM40', 'APOC1']):
 
             try:
                 risk_ratio = 1
@@ -116,7 +119,7 @@ class AlzheimerRiskProfiler:
         if risky_allele in user_genotype:
             return APOE_INDEPENDENT_RISK_FACTORS[rsid]['risk_ratio']
         else:
-            raise KeyError
+            raise NoRiskDetectedError
 
     def get_gene_name_from_rsid(self, rsid: str) -> str:
         """
@@ -140,23 +143,27 @@ class AlzheimerRiskProfiler:
             try:
                 user_genotype = genome_dict[rsid]
                 risk_ratio = self.get_risk_from_rsid(rsid, user_genotype)
-                gene_name = self.get_gene_name_from_rsid(rsid)
-                significance = self.get_significance_from_rsid(rsid)
-
+                
                 # Increment the overall APOE-independent risk
                 self.increment_risk(risk_ratio)
-
-                # Append risk factor information to running list
-                self.risk_factors.append(dict(
-                    variant=rsid,
-                    risk_ratio=risk_ratio,
-                    genotype=user_genotype,
-                    gene_name=gene_name,
-                    significance=significance,
-                ))
-
             except KeyError:
-                return
+                risk_ratio = 'Variant not included'
+                user_genotype = 'NA'
+            except NoRiskDetectedError:
+                risk_ratio = 1
+                user_genotype = genome_dict[rsid]
+
+            gene_name = self.get_gene_name_from_rsid(rsid)
+            significance = self.get_significance_from_rsid(rsid)
+
+            # Append risk factor information to running list
+            self.risk_factors.append(dict(
+                variant=rsid,
+                risk_ratio=risk_ratio,
+                genotype=user_genotype,
+                gene_name=gene_name,
+                significance=significance,
+            ))
 
     def get_risk(self):
         """
