@@ -49,7 +49,7 @@ export const Home: FC = () => {
 
     formData.append("file", file);
     await axios
-      .post(`http://127.0.0.1:5000/api/analyze_genetics`, formData)
+      .post(`http://50.17.140.20:80/api/analyze_genetics`, formData)
       .then(async (response) => {
         await setGeneData(response.data);
         // console.log(response);

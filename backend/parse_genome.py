@@ -36,25 +36,35 @@ class AlzheimerRiskProfiler:
     def get_apoe_modifiers(self, genome_dict):
         
         # rs2075650 and rs4420638
-        for rsid, gene_name in zip(['rs2075650', 'rs4420638'], ['TOMM40', ['APOC1']]):
-            risk_ratio = 1
-            if genome_dict[rsid] == 'AA':
-                self.apoe_related_risk_ratio = 1
-                risk_ratio = 'Neutralizes APOE'
+        for rsid, genotype in zip(['rs2075650', 'rs4420638'], ['TOMM40', ['APOC1']]):
+
+            try:
+                risk_ratio = 1
+                if genome_dict[rsid] == 'AA':
+                    self.apoe_related_risk_ratio = 1
+                    risk_ratio = 'Neutralizes APOE'
+                
+                gene_name = genome_dict[rsid]
+            except KeyError:
+                risk_ratio = 'Variant not included'
+                gene_name = 'NA'
 
             self.apoe_risk_factors.append(dict(
                 variant=rsid,
                 risk_ratio=risk_ratio,
-                genotype=genome_dict[rsid],
+                genotype=genotype,
                 gene_name=gene_name,
                 significance=1.00e-300,
                 ))
 
         # rs9536314
-        risk_ratio = 1
-        if (genome_dict['rs9536314'] == 'GT' or genome_dict['rs9536314'] == 'TG') and self.apoe_genotype == 'E3/E4':
-            self.apoe_related_risk_ratio = self.apoe_related_risk_ratio * risk_ratio
-            risk_ratio = 0.7
+        try:
+            risk_ratio = 1
+            if (genome_dict['rs9536314'] == 'GT' or genome_dict['rs9536314'] == 'TG') and self.apoe_genotype == 'E3/E4':
+                self.apoe_related_risk_ratio = self.apoe_related_risk_ratio * risk_ratio
+                risk_ratio = 0.7
+        except KeyError:
+            risk_ratio = '23andMe v2-4 only'
 
         self.apoe_risk_factors.append(dict(
             variant='rs9536314',
@@ -80,18 +90,18 @@ class AlzheimerRiskProfiler:
             # Store base APOE risk 
             self.apoe_genotype = apoe_genotype
             self.apoe_risk_ratio = apoe_risk_ratio
-
-            # Append risk factor information to running list
-            self.apoe_risk_factors.append(dict(
-                variant='rs429358/rs7412',
-                risk_ratio=apoe_risk_ratio,
-                genotype=apoe_genotype,
-                gene_name='APOE',
-                significance=1.00e-300,
-            ))
-
         except KeyError:
-            return 
+            apoe_risk_ratio = 'Variant not included'
+            apoe_genotype = 'NA'
+
+        # Append risk factor information to running list
+        self.apoe_risk_factors.append(dict(
+            variant='rs429358/rs7412',
+            risk_ratio=apoe_risk_ratio,
+            genotype=apoe_genotype,
+            gene_name='APOE',
+            significance=1.00e-300,
+        ))
 
 
     def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
@@ -106,7 +116,7 @@ class AlzheimerRiskProfiler:
         if risky_allele in user_genotype:
             return APOE_INDEPENDENT_RISK_FACTORS[rsid]['risk_ratio']
         else:
-            return 1
+            raise KeyError
 
     def get_gene_name_from_rsid(self, rsid: str) -> str:
         """
@@ -167,6 +177,7 @@ class AlzheimerRiskProfiler:
 
         # Gert risk from APOE-related risk factors
         self.get_apoe_risk(genome_dict)
+        self.get_apoe_modifiers(genome_dict)
         
 
 if __name__ == '__main__':    
