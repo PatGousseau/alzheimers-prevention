@@ -4,7 +4,7 @@ from flask_cors import CORS
 from parse_genome import AlzheimerRiskProfiler
 
 app = Flask(__name__)
-CORS(app)#, resources={r"/*": {"origins": "http://0.0.0.0:5000"}})
+CORS(app)#, resources={r"/*": {"origins": "http://127.0.0.1:8080"}})
 
 @app.route('/ping')
 def ping():
@@ -42,4 +42,4 @@ def analyze_genetics():
     return ret
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
