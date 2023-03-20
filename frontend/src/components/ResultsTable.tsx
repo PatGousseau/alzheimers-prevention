@@ -28,12 +28,31 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+function getColor(ratio: number): string {
+  if(ratio == 1) {
+    return '#a9a9a9'
+  } else if(ratio > 1) {
+    return "#FF0000";
+  } else {
+    return "#32CD32";
+  }
+}
+
+let color = '#a9a9a9';
+
+
 export const ResultsTable = (props: {
   risk_factors: RiskFactor[];
   risk_ratio: number;
   risk_type: string;
 }) => {
+  if(props.risk_ratio > 1) {
+    color = "#FF0000";
+  } else if(props.risk_ratio < 1) {
+    color = "#32CD32";
+  }
   return (
+
 <Grid container spacing={1} justifyContent="center">
   <Grid item key={0} xs={12}>
     <Grid container spacing={0} justifyContent="center">
@@ -81,7 +100,7 @@ export const ResultsTable = (props: {
                 width: "30%",
                 margin: "0 auto",
                 padding: "0px",
-                backgroundColor: riskFactor.risk_ratio > 1 ? "#FF0000" : "#32CD32",
+                backgroundColor: getColor(riskFactor.risk_ratio),
                 borderRadius: "5px",
               }}
             >
