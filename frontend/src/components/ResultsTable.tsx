@@ -30,7 +30,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function getColor(ratio: number): string {
   if(ratio == 1) {
-    return '#a9a9a9'
+    return '#d7d7d7'
   } else if(ratio > 1) {
     return "#FF0000";
   } else {
