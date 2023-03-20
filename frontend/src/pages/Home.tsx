@@ -1,9 +1,6 @@
 import {
   Button,
-  Paper,
   Stack,
-  Grid,
-  styled,
   Tab,
   Tabs,
   Box,
@@ -13,7 +10,6 @@ import { FC, useState } from "react";
 import { ResultsProps, ResultsTable } from "../components/ResultsTable";
 
 export const Home: FC = () => {
-  const [selectedFile, setSelectedFile] = useState();
   const [geneData, setGeneData] = useState<ResultsProps>({
     data: {
       apoe_genotype: "",
@@ -42,7 +38,6 @@ export const Home: FC = () => {
 
   const handleFileUpload = async (event: any) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
 
     // send file to backend
     const formData = new FormData();
@@ -52,7 +47,7 @@ export const Home: FC = () => {
       .post(`http://127.0.0.1:80/api/analyze_genetics`, formData)
       .then(async (response) => {
         await setGeneData(response.data);
-         console.log(response);
+        console.log(response);
         setGeneData((prevState) => ({
           data: {
             apoe_genotype: response.data.apoe_genotype,
@@ -98,9 +93,17 @@ export const Home: FC = () => {
         </Button>
       </Stack>
       {activeTab === 0 ? (
-        <ResultsTable risk_factors={geneData.data.apoe_risk_factors} risk_ratio={geneData.data.apoe_risk_ratio} risk_type={"Total risk from APOE-related genotypes"} />
+        <ResultsTable
+          risk_factors={geneData.data.apoe_risk_factors}
+          risk_ratio={geneData.data.apoe_risk_ratio}
+          risk_type={"Total risk from APOE-related genotypes"}
+        />
       ) : (
-        <ResultsTable risk_factors={geneData.data.risk_factors} risk_ratio={geneData.data.risk_ratio} risk_type={"Total risk from APOE-independent genotypes"}  />
+        <ResultsTable
+          risk_factors={geneData.data.risk_factors}
+          risk_ratio={geneData.data.risk_ratio}
+          risk_type={"Total risk from APOE-independent genotypes"}
+        />
       )}
     </Stack>
   );
