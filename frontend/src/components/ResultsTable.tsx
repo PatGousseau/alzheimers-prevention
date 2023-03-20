@@ -71,12 +71,17 @@ export const ResultsTable = (props: {
             <Typography variant="body2">{riskFactor.significance}</Typography>
           </Grid>
           <Grid item xs={2}>
+            {isNaN(riskFactor.risk_ratio) ? (
+              <Typography variant="body2">
+                {riskFactor.risk_ratio}
+              </Typography>
+            ) : 
             <Box
               sx={{
                 width: "30%",
                 margin: "0 auto",
                 padding: "0px",
-                backgroundColor: props.risk_ratio > 1 ? "#FF0000" : "#32CD32",
+                backgroundColor: riskFactor.risk_ratio > 1 ? "#FF0000" : "#32CD32",
                 borderRadius: "5px",
               }}
             >
@@ -84,6 +89,7 @@ export const ResultsTable = (props: {
                 {(Math.round(riskFactor.risk_ratio * 100) / 100).toFixed(2)}
               </Typography>
             </Box>
+          }
           </Grid>
         </Grid>
       </Item>
