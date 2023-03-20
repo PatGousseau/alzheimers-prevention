@@ -52,6 +52,7 @@ class AlzheimerRiskProfiler:
                 risk_ratio = 'Variant not included'
                 gene_name = 'NA'
 
+            print("zok")
             self.apoe_risk_factors.append(dict(
                 variant=rsid,
                 risk_ratio=risk_ratio,
