@@ -3,7 +3,7 @@ Web application allowing users to analyze their raw 23andMe files to screen for 
 
 React frontend, Flask backend, deployed on AWS.
 
-*Research is ongoing and the app should be updated accordingly. Currently mostly based on (Bellenguez C, Küçükali F, Jansen IE, Kleineidam L, Moreno-Grau S, Amin N, et al.).
+*Research is ongoing and the app should be updated accordingly. Currently mostly based on (Bellenguez et al., 2022).
 
 
 ### References
