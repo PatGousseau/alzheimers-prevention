@@ -6,3 +6,9 @@ docker tag lubav-backend:latest 625218769979.dkr.ecr.us-east-1.amazonaws.com/lub
 docker push 625218769979.dkr.ecr.us-east-1.amazonaws.com/lubav-backend:latest
 cd aws_deploy
 eb deploy
+
+# sudo nano /etc/nginx/nginx.conf
+# client_max_body_size 40M;
+
+# sudo systemctl restart nginx 
+# sudo service nginx restart
