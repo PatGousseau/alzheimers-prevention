@@ -39,7 +39,7 @@ class AlzheimerRiskProfiler:
     def get_apoe_modifiers(self, genome_dict):
         
         # rs2075650 and rs4420638
-        for rsid, genotype in zip(['rs2075650', 'rs4420638'], ['TOMM40', 'APOC1']):
+        for rsid, gene_name in zip(['rs2075650', 'rs4420638'], ['TOMM40', 'APOC1']):
 
             try:
                 risk_ratio = 1
@@ -47,11 +47,11 @@ class AlzheimerRiskProfiler:
                     self.apoe_related_risk_ratio = 1
                     risk_ratio = 'Neutralizes APOE'
                 
-                gene_name = genome_dict[rsid]
+                genotype = genome_dict[rsid]
             except KeyError:
                 risk_ratio = 'Variant not included'
-                gene_name = 'NA'
-
+                genotype = 'NA'
+            
             self.apoe_risk_factors.append(dict(
                 variant=rsid,
                 risk_ratio=risk_ratio,
