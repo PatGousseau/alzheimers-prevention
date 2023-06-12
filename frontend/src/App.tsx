@@ -1,6 +1,6 @@
 import './App.css';
 import { Header } from './components/Header';
-import { Home } from './pages/Home';
+import { Overview } from './pages/Overview';
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles styles={{ body: { backgroundColor: '#F5F5F5' } }} />
       <Header/>
-      <Home/>
+      <Overview/>
     </ThemeProvider>
   );
 }
