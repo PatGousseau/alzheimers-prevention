@@ -23,10 +23,10 @@ export const RiskLevel: FC<{
       </Stack>
 
       <Stack sx={{ width: "100%" }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h4">
           {header}
         </Typography>
-        <Typography variant="body1">{percentage}</Typography>
+        <Typography variant="body2">{percentage}</Typography>
       </Stack>
     </Stack>
   );

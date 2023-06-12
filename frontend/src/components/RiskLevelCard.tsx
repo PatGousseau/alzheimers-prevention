@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { ButtonBase, Divider, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { RiskLevel } from "./RiskLevel";
 
@@ -32,12 +32,12 @@ export const RiskLevelCard: FC = () => {
   ];
 
   return (
-    <Stack sx={{ boxShadow: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", mt:1 }}>
+    <Stack sx={{ boxShadow: 3, borderRadius:'16px', pl:2,  height:"100%" }}>
+        <Typography variant="h4" sx={{ mt:2 }}>
           Risk levels
         </Typography>
-        <Divider/>
-        <Stack spacing={1}>
+        <Divider />
+        <Stack spacing={1} sx={{p:2}}>
       {riskLevels.map((riskLevel, index) => (
         <RiskLevel
           key={index}
@@ -48,5 +48,6 @@ export const RiskLevelCard: FC = () => {
       ))}
       </Stack>
     </Stack>
+
   );
 };
