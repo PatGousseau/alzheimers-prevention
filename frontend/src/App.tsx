@@ -3,6 +3,9 @@ import { Header } from './components/Header';
 import { Overview } from './pages/Overview';
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import "@fontsource/montserrat";
+import { Home } from './pages/Home';
+import { APOEInterdependent } from './pages/APOEInterdependent';
+import { APOEIndependent } from './pages/APOEIndependent';
 
 function App() {
 
@@ -31,6 +34,10 @@ function App() {
         fontSize: 20,
         fontWeight: 'bold',
       },
+      h5: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
       body1: {
         fontSize: 16,
         fontWeight: '500',
@@ -49,7 +56,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles styles={{ body: { backgroundColor: '#F5F5F5' } }} />
-      <Overview/>
+      <APOEIndependent/>
+      
     </ThemeProvider>
   );
 }
