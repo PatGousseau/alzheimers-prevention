@@ -39,9 +39,3 @@ export default function EvidenceToolTip() {
     </div>
   );
 }
-
-
-// 2 stars: p < 5 × 10−8
-// 3 stars: p < 5 × 10−15
-// 4 stars: p < 5 × 10−20
-// 5 stars: p < 5 × 10−30

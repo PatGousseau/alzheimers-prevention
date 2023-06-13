@@ -6,6 +6,7 @@ import "@fontsource/montserrat";
 import { Home } from './pages/Home';
 import { APOEInterdependent } from './pages/APOEInterdependent';
 import { APOEIndependent } from './pages/APOEIndependent';
+import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
 
 function App() {
 
@@ -55,9 +56,9 @@ function App() {
   });
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles styles={{ body: { backgroundColor: '#F5F5F5' } }} />
+      <GlobalStyles styles={{ body: { backgroundColor: '#FDFEFE' } }} />
+      <DementiaRiskFactors/>
       <APOEIndependent/>
-      
     </ThemeProvider>
   );
 }

@@ -7,7 +7,7 @@ export const APOEInterdependent: FC = () => {
   return (
     <Stack sx={{ m: 4 }}>
         <BackButton />
-        <GeneGrid header={"APOE Interdependent Genes"} />
+        <GeneGrid header={"APOE Interdependent Genes"} isToolTip={false} />
     </Stack>
   );
 };
