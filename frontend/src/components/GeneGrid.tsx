@@ -4,11 +4,12 @@ import EvidenceToolTip from "../components/EvidenceToolTip";
 
 export const GeneGrid = (props: {
   header?: string;
-  isToolTip: boolean;
+  boxShadow: number;
+  fullInfo: boolean; // var to determine if we show name and risk impact
 }) => {
   return (
     <Stack>
-      {!props.isToolTip && (
+      {props.header && (
         <>
           <Typography variant="h1" textAlign="center" sx={{ my: 4 }}>
             {props.header}
@@ -17,7 +18,7 @@ export const GeneGrid = (props: {
       )}
 
       <Stack direction="row" sx={{ p: 2 }}>
-        {!props.isToolTip && (
+        {props.fullInfo && (
           <>
             <Typography variant="h5" sx={{ flex: 1 }}>
               Name
@@ -42,7 +43,7 @@ export const GeneGrid = (props: {
         </Stack>
       </Stack>
       <Stack direction="row" sx={{ justifyContent: "center" }}>
-        <GeneBar isToolTip={props.isToolTip} />
+        <GeneBar fullInfo={props.fullInfo} boxShadow={props.boxShadow} />
       </Stack>
     </Stack>
   );

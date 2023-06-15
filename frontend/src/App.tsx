@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { APOEInterdependent } from './pages/APOEInterdependent';
 import { APOEIndependent } from './pages/APOEIndependent';
 import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
+import { Recommendation } from './pages/Recommendation';
 
 function App() {
 
@@ -57,8 +58,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles styles={{ body: { backgroundColor: '#FDFEFE' } }} />
-      <DementiaRiskFactors/>
-      <APOEIndependent/>
+      <Recommendation/>
     </ThemeProvider>
   );
 }

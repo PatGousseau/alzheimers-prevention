@@ -2,18 +2,19 @@ import { Rating, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 
 interface GeneBarProps {
-  isToolTip: boolean;
+  fullInfo: boolean;
+  boxShadow: number;
 }
 
-export const GeneBar: FC<GeneBarProps> = ({ isToolTip }) => {
-  const boxShadow = isToolTip ? 0 : 3;
+export const GeneBar: FC<GeneBarProps> = ({ fullInfo,boxShadow }) => {
+  // const boxShadow = isToolTip ? 0 : 3;
 
   return (
     <Stack
       direction="row"
-      sx={{ width: "100%", boxShadow, borderRadius: "8px", p: 2 }}
+      sx={{ width: "100%", boxShadow: boxShadow, borderRadius: "8px", p: 2 }}
     >
-      {!isToolTip && (
+      {fullInfo && (
         <Typography variant="body1" sx={{ flex: 1 }}>
           APOE4
         </Typography>
@@ -27,7 +28,7 @@ export const GeneBar: FC<GeneBarProps> = ({ isToolTip }) => {
       <Typography variant="body1" sx={{ flex: 1 }}>
         ...
       </Typography>
-      {!isToolTip && (
+      {fullInfo && (
         <Typography variant="body1" sx={{ flex: 1 }}>
           10%
         </Typography>
