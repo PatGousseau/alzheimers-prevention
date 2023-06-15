@@ -12,6 +12,12 @@ import { FC, useState } from "react";
 import { RiskLevelCard } from "../components/RiskLevelCard";
 import { FactorCard } from "../components/FactorCard";
 import { RiskScoreCard } from "../components/RiskScoreCard";
+import { Router } from "react-router-dom";
+import {
+  Link,
+  LinkProps as RouterLinkProps,
+  MemoryRouter,
+} from 'react-router-dom';
 
 export const Overview: FC = () => {
   return (
@@ -34,17 +40,50 @@ export const Overview: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <FactorCard header="APOE Interdependent" />
+          <Box
+            component={Link}
+            to="/APOEInterdependent"
+            sx={{
+              width: "100%",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <FactorCard header="APOE Interdependent" />
+          </Box>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Box
+            component={Link}
+            to="/APOEIndependent"
+            sx={{
+              width: "100%",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <FactorCard header="APOE Independent" />
+          </Box>
         </Grid>
         <Grid item xs={4}>
-          <FactorCard header="APOE Independent" />
-        </Grid>
-        <Grid item xs={4}>
-          <FactorCard header="Dementia associated risk factor" />
+          <Box
+            component={Link}
+            to="/DementiaRiskFactors"
+            sx={{
+              width: "100%",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <FactorCard header="Dementia associated risk factor" />
+          </Box>
         </Grid>
       </Grid>
       <Stack>
         <Button
+          component={Link}
+          to="/recommendation"
           variant="contained"
           color="primary"
           sx={{ width: 238, mt: 4, marginLeft: "auto" }}

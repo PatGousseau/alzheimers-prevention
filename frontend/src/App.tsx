@@ -8,6 +8,9 @@ import { APOEInterdependent } from './pages/APOEInterdependent';
 import { APOEIndependent } from './pages/APOEIndependent';
 import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
 import { Recommendation } from './pages/Recommendation';
+import {BrowserRouter} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
 
@@ -57,8 +60,14 @@ function App() {
   });
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles styles={{ body: { backgroundColor: '#FDFEFE' } }} />
-      <Recommendation/>
+      <GlobalStyles styles={{ body: { backgroundColor: "#FDFEFE" } }} />
+      <Routes>
+          <Route path="/" element={<Overview />} />
+          <Route path="/APOEIndependent" element={<APOEIndependent />} />
+          <Route path="/APOEInterdependent" element={<APOEInterdependent />} />
+          <Route path="/DementiaRiskFactors" element={<DementiaRiskFactors />} />
+          <Route path="/Recommendation" element={<Recommendation />} />
+       </Routes>
     </ThemeProvider>
   );
 }
