@@ -107,6 +107,7 @@ class AlzheimerRiskProfiler:
         ))
 
 
+# TODO: pq on utilise pas le major? 
     def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
         """
         Get risk given a known risk multiplying genetic factor RSID and the client's genotype.

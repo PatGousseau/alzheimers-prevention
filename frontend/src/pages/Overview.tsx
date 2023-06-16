@@ -1,25 +1,21 @@
 import {
   Button,
   Stack,
-  Tab,
-  Tabs,
   Box,
   Typography,
   Grid,
 } from "@mui/material";
-import axios from "axios";
-import { FC, useState } from "react";
+import { FC, useContext } from "react";
 import { RiskLevelCard } from "../components/RiskLevelCard";
 import { FactorCard } from "../components/FactorCard";
 import { RiskScoreCard } from "../components/RiskScoreCard";
-import { Router } from "react-router-dom";
 import {
-  Link,
-  LinkProps as RouterLinkProps,
-  MemoryRouter,
+  Link
 } from 'react-router-dom';
+import { GeneContext } from "../context/geneContext";
 
 export const Overview: FC = () => {
+
   return (
     <Stack sx={{ m: 4 }}>
       <Grid container spacing={4}>

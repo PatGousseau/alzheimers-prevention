@@ -1,5 +1,4 @@
 import './App.css';
-import { Header } from './components/Header';
 import { Overview } from './pages/Overview';
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import "@fontsource/montserrat";
@@ -10,6 +9,8 @@ import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
 import { Recommendation } from './pages/Recommendation';
 import {BrowserRouter} from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
+import { Upload } from './pages/Upload';
+import { GeneProvider } from './context/geneContext';
 
 
 function App() {
@@ -61,13 +62,19 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles styles={{ body: { backgroundColor: "#FDFEFE" } }} />
-      <Routes>
-          <Route path="/" element={<Overview />} />
+      <GeneProvider>
+        <Routes>
+          <Route path="/" element={<Upload />} />
+          <Route path="/Overview" element={<Overview />} />
           <Route path="/APOEIndependent" element={<APOEIndependent />} />
           <Route path="/APOEInterdependent" element={<APOEInterdependent />} />
-          <Route path="/DementiaRiskFactors" element={<DementiaRiskFactors />} />
+          <Route
+            path="/DementiaRiskFactors"
+            element={<DementiaRiskFactors />}
+          />
           <Route path="/Recommendation" element={<Recommendation />} />
-       </Routes>
+        </Routes>
+      </GeneProvider>
     </ThemeProvider>
   );
 }

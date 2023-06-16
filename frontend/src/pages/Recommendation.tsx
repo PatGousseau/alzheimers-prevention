@@ -47,7 +47,7 @@ export const Recommendation: FC = () => {
               <Typography variant="h3" sx={{ pt: 4, pb: 2 }}>
                 Relevant genes
               </Typography>
-              <GeneGrid boxShadow={3} fullInfo={false} />
+              {/* <GeneGrid boxShadow={3} fullInfo={false} /> */}
             </Stack>
           </Stack>
         </Grid>

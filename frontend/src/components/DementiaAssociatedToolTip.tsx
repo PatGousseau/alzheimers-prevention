@@ -44,7 +44,7 @@ export default function DementiaAssociatedToolTip() {
           disableTouchListener
           title={
             <Stack>
-              <GeneGrid boxShadow={0} fullInfo={false} />
+              {/* <GeneGrid boxShadow={0} fullInfo={false} /> */}
             </Stack>
           }
         >
