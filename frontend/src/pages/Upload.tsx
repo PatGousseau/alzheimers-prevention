@@ -1,18 +1,27 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GeneContext } from "../context/geneContext";
 
 export const Upload: FC = () => {
   const { state, updateState } = useContext(GeneContext);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleFileUpload = async (file: File) => {
+    if (file.type !== "text/plain" && file.type !== "text/csv") {
+      setError("Invalid file format. Only .txt and .csv files are allowed.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
-    navigate("/overview");
+
     try {
+      setError(null);
+      setIsLoading(true);
       const response = await axios.post(
         `http://localhost:80/api/analyze_genetics`,
         formData
@@ -26,7 +35,11 @@ export const Upload: FC = () => {
       });
     } catch (error) {
       console.error(error);
+      setError("An error occurred during file upload.");
+    } finally {
+      setIsLoading(false);
     }
+    navigate("/overview");
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -72,14 +85,22 @@ export const Upload: FC = () => {
           Drag and drop your .txt or .csv data file from 23andMe or other
           providers like Ancestry DNA here.
         </Typography>
-        <Button
-          variant="contained"
-          component="label"
-          sx={{ width: "fit-content" }}
-        >
-          Browse
-          <input hidden multiple type="file" onChange={handleInputChange} />
-        </Button>
+        {isLoading ? (
+          <CircularProgress size={24} />
+        ) : (
+          <Button
+            variant="contained"
+            component="label"
+            sx={{ width: "fit-content" }}
+            disabled={isLoading}
+          >
+            Browse
+            <input hidden multiple type="file" onChange={handleInputChange} />
+          </Button>
+        )}
+        {error && (
+          <Alert severity="error" sx={{mt:4}}>{error}</Alert>
+        )}
       </Stack>
     </Stack>
   );
