@@ -8,7 +8,7 @@ export const RiskLevel: FC<{
     percentage: string;
   }> = ({ color, header, percentage }) => {
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={2} sx={{pb:1.5}}>
       <Stack sx={{ width: 24 }}>
         <div
           style={{
@@ -23,7 +23,7 @@ export const RiskLevel: FC<{
       </Stack>
 
       <Stack sx={{ width: "100%" }}>
-        <Typography variant="h4">
+        <Typography variant="h5">
           {header}
         </Typography>
         <Typography variant="body2">{percentage}</Typography>

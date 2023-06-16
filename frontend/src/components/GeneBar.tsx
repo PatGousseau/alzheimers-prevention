@@ -1,6 +1,6 @@
 import { Rating, Stack, Typography } from "@mui/material";
-import { FC, useContext } from "react";
-import { GeneContext, RiskFactor } from "../context/geneContext";
+import { FC } from "react";
+import { RiskFactor } from "../context/geneContext";
 
 interface GeneBarProps {
   fullInfo: boolean;

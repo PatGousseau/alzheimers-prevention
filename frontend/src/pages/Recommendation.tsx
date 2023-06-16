@@ -11,7 +11,6 @@ export const Recommendation: FC = () => {
         <BackButton />
       </Stack>
       <Grid container spacing={20}>
-        {/* Potential implications */}
         <Grid item xs={5} sx={{ paddingRight: 4 }}>
           <Stack>
             <Typography variant="h3" sx={{ pb: 4 }}>
@@ -27,8 +26,6 @@ export const Recommendation: FC = () => {
             <ArrowForwardIosIcon sx={{ marginLeft: "auto" }} />
           </Stack>
         </Grid>
-
-        {/* Example recommendations */}
         <Grid item xs={7}>
           <Stack>
             <Stack>

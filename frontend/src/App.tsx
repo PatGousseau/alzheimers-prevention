@@ -2,12 +2,10 @@ import './App.css';
 import { Overview } from './pages/Overview';
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import "@fontsource/montserrat";
-import { Home } from './pages/Home';
 import { APOEInterdependent } from './pages/APOEInterdependent';
 import { APOEIndependent } from './pages/APOEIndependent';
 import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
 import { Recommendation } from './pages/Recommendation';
-import {BrowserRouter} from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import { Upload } from './pages/Upload';
 import { GeneProvider } from './context/geneContext';
@@ -65,14 +63,14 @@ function App() {
       <GeneProvider>
         <Routes>
           <Route path="/" element={<Upload />} />
-          <Route path="/Overview" element={<Overview />} />
-          <Route path="/APOEIndependent" element={<APOEIndependent />} />
-          <Route path="/APOEInterdependent" element={<APOEInterdependent />} />
+          <Route path="/overview" element={<Overview />} />
+          <Route path="/apoeIndependent" element={<APOEIndependent />} />
+          <Route path="/apoeInterdependent" element={<APOEInterdependent />} />
           <Route
-            path="/DementiaRiskFactors"
+            path="/dementiaRiskFactors"
             element={<DementiaRiskFactors />}
           />
-          <Route path="/Recommendation" element={<Recommendation />} />
+          <Route path="/recommendation" element={<Recommendation />} />
         </Routes>
       </GeneProvider>
     </ThemeProvider>

@@ -38,7 +38,7 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/APOEInterdependent"
+            to="/apoeInterdependent"
             sx={{
               width: "100%",
               textDecoration: "none",
@@ -52,7 +52,7 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/APOEIndependent"
+            to="/apoeIndependent"
             sx={{
               width: "100%",
               textDecoration: "none",
@@ -65,7 +65,7 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/DementiaRiskFactors"
+            to="/dementiaRiskFactors"
             sx={{
               width: "100%",
               textDecoration: "none",

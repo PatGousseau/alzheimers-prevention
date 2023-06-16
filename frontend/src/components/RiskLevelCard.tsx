@@ -16,17 +16,17 @@ export const RiskLevelCard: FC = () => {
     },
     {
         color: "#EBB502",
-        header: "Somewhat > typical",
+        header: "Somewhat greater than typical",
         percentage: "51 - 70%",
     },
     {
         color: "#FF7272",
-        header: "> Typical",
+        header: "Greater than typical",
         percentage: "71 - 90%",
     },
     {
         color: "#B7394F",
-        header: ">> Typical",
+        header: "Much greater than Typical",
         percentage: ">90%",
     },
   ];

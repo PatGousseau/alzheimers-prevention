@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
 export interface RiskState {
   apoe_genotype: string;
