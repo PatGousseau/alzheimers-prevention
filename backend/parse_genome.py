@@ -1,6 +1,7 @@
 import argparse 
-from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS
-
+from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS, PRS_GENES
+import random
+from scipy.stats import norm
 class NoRiskDetectedError(Exception):
     def __init__(self):
         pass
@@ -186,6 +187,55 @@ class AlzheimerRiskProfiler:
         # Gert risk from APOE-related risk factors
         self.get_apoe_risk(genome_dict)
         self.get_apoe_modifiers(genome_dict)
+
+        return self.get_prs(genome_dict)
+    
+    def calculate_prs_percentile(sample,self):
+        mean = 0.34411544189562
+        std_dev = 0.2390461770780585
+        z_score = (sample - mean) / std_dev  # Calculate the z-score
+        percentile = norm.cdf(z_score) * 100  # Calculate the percentile
+        return percentile
+
+
+    def get_prs(self, genome_dict):
+        """
+        Gets polygenic risk score of individual by checking against known SNPs
+        """
+        prs_risk = 0
+        for rsid in PRS_GENES:
+            
+            try:
+                user_genotype = genome_dict[rsid] # ex: user_genotype = AT
+                risk_allele = PRS_GENES[rsid]['risk_allele'] # risk allele is one character such as 'A'
+                weight = PRS_GENES[rsid]['weight']
+                risk_ratio = PRS_GENES[rsid]['risk_ratio']
+                risk_multiplier = user_genotype.count(risk_allele) # 0/1/2
+                prs_risk += (risk_multiplier * risk_ratio * weight)    
+  
+            except KeyError:
+                risk_ratio = 'Variant not included'
+                user_genotype = 'NA'
+
+        return prs_risk
+    
+    
+    def create_synthetic_genome_dict(self):
+        """
+        Creates synthetic genome containing all genes involved in PRS
+        Generates SNPs for each SNP based on frequency of risk allele
+        """
+        genome_dict = {}
+        for rsid in PRS_GENES:
+            freq = PRS_GENES[rsid]['frequency']
+            risk_allele = PRS_GENES[rsid]['risk_allele']
+
+            genotype1 = risk_allele if random.random() < freq else 'X' 
+            genotype2 = risk_allele if random.random() < freq else 'X' 
+            genome_dict[rsid] = genotype1 + genotype2
+        return genome_dict
+
+        
         
 
 if __name__ == '__main__':    

@@ -39,35 +39,35 @@ APOE_RISK_FACTORS = {
 Genes involved in the polygentic risk score (PRS)
 """
 PRS_GENES = dict(
-    rs4266886=dict(risk_allele='T',  weight=0.1426, risk_ratio=-0.09)
-    rs61822977=dict(risk_allele='A', weight=0.4091, risk_ratio=−0.08)
-    rs6733839=dict(risk_allele='T', weight=0.395, risk_ratio=−0.15)
-    rs10202748=dict(risk_allele='A',  weight=0.652605, risk_ratio=−0.06)
-    rs115124923=dict(risk_allele='A',  weight=0.1554, risk_ratio=0.17)
-    rs115675626=dict(risk_allele='A',  weight=0.1104, risk_ratio=−0.11)
-    rs1109581=dict(risk_allele='T',  weight=0.2452, risk_ratio=−0.07)
-    rs17265593=dict(risk_allele='T',  weight=0.2726, risk_ratio=−0.23)
-    rs2597283=dict(risk_allele='A',  weight=0.3385, risk_ratio=0.28)
-    rs1476679=dict(risk_allele='T',  weight=0.7885, risk_ratio=0.11)
-    rs78571833=dict(risk_allele='A',  weight=0.975, risk_ratio=0.14)
-    rs12679874=dict(risk_allele='A', weight=0.5445, risk_ratio=−0.09)
-    rs2741342=dict(risk_allele='T',  weight=0.2941, risk_ratio=0.09)
-    rs7831810=dict(risk_allele='A',  weight=0.4012, risk_ratio=0.09)
-    rs1532277=dict(risk_allele='T',  weight=0.236, risk_ratio=0.21)
-    rs9331888=dict(risk_allele='C',  weight=0.6665, risk_ratio=0.16)
-    rs7920721=dict(risk_allele='A',  weight=0.7302, risk_ratio=−0.07)
-    rs3740688=dict(risk_allele='T',  weight=0.6392, risk_ratio=0.07)
-    rs7116190=dict(risk_allele='A',  weight=0.2879, risk_ratio=0.08)
-    rs526904=dict(risk_allele='T',  weight=0.3263, risk_ratio=−0.20)
-    rs543293=dict(risk_allele='A',  weight=0.2923, risk_ratio=0.3)
-    rs11218343=dict(risk_allele='T', weight=0.891, risk_ratio=0.18)
-    rs6572869=dict(risk_allele='A',  weight=0.2754, risk_ratio=−0.11)
-    rs12590273=dict(risk_allele='T',  weight=0.9083, risk_ratio=0.1)
-    rs7145100=dict(risk_allele='C',  weight=0.146, risk_ratio=0.08)
-    rs74615166=dict(risk_allele='T',  weight=0.992612, risk_ratio=−0.23)
-    rs2526378=dict(risk_allele='A', weight=0.4722, risk_ratio=0.09)
-    rs117481827=dict(risk_allele='T', weight=0.9531, risk_ratio=−0.09)
-    rs7408475=dict(risk_allele='C',  weight=0.7392, risk_ratio=0.18)
-    rs3752246=dict(risk_allele='C',  weight=0.8255, risk_ratio=−0.25)
-    rs7274581=dict(risk_allele='A',  weight=0.90595, risk_ratio=0.1)
+    rs4266886=dict(risk_allele='T',  weight=0.1426, risk_ratio=-0.09, frequency=0.1426),
+    rs61822977=dict(risk_allele='A', weight=0.4091, risk_ratio=-0.08, frequency=0.4091),
+    rs6733839=dict(risk_allele='T', weight=0.395, risk_ratio=-0.15, frequency=0.395),
+    rs10202748=dict(risk_allele='A',  weight=0.652605, risk_ratio=-0.06,frequency=0.652605),
+    rs115124923=dict(risk_allele='A',  weight=0.1554, risk_ratio=0.17,frequency=0.1554),
+    rs115675626=dict(risk_allele='A',  weight=0.1104, risk_ratio=-0.11,frequency=0.1104),
+    rs1109581=dict(risk_allele='T',  weight=0.2452, risk_ratio=-0.07,frequency=0.2452),
+    rs17265593=dict(risk_allele='T',  weight=0.2726, risk_ratio=-0.23,frequency=0.2726),
+    rs2597283=dict(risk_allele='A',  weight=0.3385, risk_ratio=0.28,frequency=0.3385),
+    rs1476679=dict(risk_allele='T',  weight=0.7885, risk_ratio=0.11,frequency=0.7885),
+    rs78571833=dict(risk_allele='A',  weight=0.975, risk_ratio=0.14,frequency=0.975),
+    rs12679874=dict(risk_allele='A', weight=0.5445, risk_ratio=-0.09,frequency=0.5445),
+    rs2741342=dict(risk_allele='T',  weight=0.2941, risk_ratio=0.09,frequency=0.2941),
+    rs7831810=dict(risk_allele='A',  weight=0.4012, risk_ratio=0.09,frequency=0.4012),
+    rs1532277=dict(risk_allele='T',  weight=0.236, risk_ratio=0.21,frequency=0.236),
+    rs9331888=dict(risk_allele='C',  weight=0.6665, risk_ratio=0.16,frequency=0.6665),
+    rs7920721=dict(risk_allele='A',  weight=0.7302, risk_ratio=-0.07,frequency=0.7302),
+    rs3740688=dict(risk_allele='T',  weight=0.6392, risk_ratio=0.07,frequency=0.6392),
+    rs7116190=dict(risk_allele='A',  weight=0.2879, risk_ratio=0.08,frequency=0.2879),
+    rs526904=dict(risk_allele='T',  weight=0.3263, risk_ratio=-0.20,frequency=0.3263),
+    rs543293=dict(risk_allele='A',  weight=0.2923, risk_ratio=0.3,frequency=0.2923),
+    rs11218343=dict(risk_allele='T', weight=0.891, risk_ratio=0.18,frequency=0.891),
+    rs6572869=dict(risk_allele='A',  weight=0.2754, risk_ratio=-0.11,frequency=0.2754),
+    rs12590273=dict(risk_allele='T',  weight=0.9083, risk_ratio=0.1,frequency=0.9083),
+    rs7145100=dict(risk_allele='C',  weight=0.146, risk_ratio=0.08,frequency=0.146),
+    rs74615166=dict(risk_allele='T',  weight=0.992612, risk_ratio=-0.23,frequency=0.992612),
+    rs2526378=dict(risk_allele='A', weight=0.4722, risk_ratio=0.09,frequency=0.4722),
+    rs117481827=dict(risk_allele='T', weight=0.9531, risk_ratio=-0.09,frequency=0.9531),
+    rs7408475=dict(risk_allele='C',  weight=0.7392, risk_ratio=0.18,frequency=0.7392),
+    rs3752246=dict(risk_allele='C',  weight=0.8255, risk_ratio=-0.25,frequency=0.8255),
+    rs7274581=dict(risk_allele='A',  weight=0.90595, risk_ratio=0.1,frequency=0.90595),
 )
