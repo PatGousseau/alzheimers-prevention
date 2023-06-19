@@ -23,6 +23,7 @@ class AlzheimerRiskProfiler:
         self.rs429358 = None
         self.rs7412 = None
         self.apoe_genotype = 'Unknown'
+        self.prs = 0 # polygenic risk score
         
 
     def increment_risk(self, risk_ratio):
@@ -181,16 +182,15 @@ class AlzheimerRiskProfiler:
                 rsid, chromosome, position, genotype = line.split()
                 genome_dict[rsid] = genotype
 
-        # Get risk from APOE-independent risk factors
-        self.get_apoe_independent_risk(genome_dict)
-
-        # Gert risk from APOE-related risk factors
         self.get_apoe_risk(genome_dict)
         self.get_apoe_modifiers(genome_dict)
-
-        return self.get_prs(genome_dict)
+        self.get_prs(genome_dict)
     
     def calculate_prs_percentile(sample,self):
+        """
+        Calculates users PRS based on standard deviation and mean of monte carlos simulation
+        :return: percentile of users personsal risk score as percentage
+        """
         mean = 0.34411544189562
         std_dev = 0.2390461770780585
         z_score = (sample - mean) / std_dev  # Calculate the z-score
@@ -202,7 +202,7 @@ class AlzheimerRiskProfiler:
         """
         Gets polygenic risk score of individual by checking against known SNPs
         """
-        prs_risk = 0
+        prs = 0
         for rsid in PRS_GENES:
             
             try:
@@ -211,13 +211,25 @@ class AlzheimerRiskProfiler:
                 weight = PRS_GENES[rsid]['weight']
                 risk_ratio = PRS_GENES[rsid]['risk_ratio']
                 risk_multiplier = user_genotype.count(risk_allele) # 0/1/2
-                prs_risk += (risk_multiplier * risk_ratio * weight)    
+                prs += (risk_multiplier * risk_ratio * weight)
+
+                gene_name = PRS_GENES[rsid]['gene_name']
+
+                # Append risk factor information to running list
+                self.risk_factors.append(dict(
+                    variant=rsid,
+                    risk_ratio=risk_ratio,
+                    genotype=user_genotype,
+                    gene_name=gene_name,
+                    significance=weight,
+                ))    
   
             except KeyError:
                 risk_ratio = 'Variant not included'
                 user_genotype = 'NA'
-
-        return prs_risk
+        # store prs
+        self.prs = prs
+        return prs
     
     
     def create_synthetic_genome_dict(self):
