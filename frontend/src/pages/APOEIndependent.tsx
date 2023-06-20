@@ -9,7 +9,7 @@ export const APOEIndependent: FC = () => {
   return (
     <Stack sx={{ m: 4 }}>
         <BackButton />
-        <GeneGrid header={"APOE Independent Genes"} boxShadow={3} fullInfo={true} RiskFactorList={state.risk_factors} />
+        <GeneGrid header={"APOE Independent Genes"} boxShadow={3} fullInfo={true} RiskFactorList={state.risk_factors} prs_percentile={state.prs_percentile} />
     </Stack>
   );
 };

@@ -1,14 +1,14 @@
 import { Stack, Typography } from "@mui/material";
 import { GeneBar } from "../components/GeneBar";
 import EvidenceToolTip from "../components/EvidenceToolTip";
-import { useContext } from "react";
-import { GeneContext, RiskFactor } from "../context/geneContext";
+import { RiskFactor } from "../context/geneContext";
 
 export const GeneGrid = (props: {
   header?: string;
   boxShadow: number;
   fullInfo: boolean; // var to determine if we show name and risk impact
   RiskFactorList: RiskFactor[];
+  prs_percentile?:number;
 }) => {
   return (
     <Stack>
@@ -16,6 +16,13 @@ export const GeneGrid = (props: {
         <>
           <Typography variant="h1" textAlign="center" sx={{ my: 4 }}>
             {props.header}
+          </Typography>
+        </>
+      )}
+      {props.prs_percentile && (
+        <>
+          <Typography variant="h3" textAlign="center" sx={{ my: 4 }}>
+            {props.prs_percentile}
           </Typography>
         </>
       )}

@@ -6,6 +6,7 @@ export interface RiskState {
   apoe_risk_ratio: number;
   risk_factors: RiskFactor[];
   risk_ratio: number;
+  prs_percentile:number;
 }
 
 export interface RiskFactor {
@@ -38,6 +39,7 @@ const initialState: RiskState = {
     },
   ],
   risk_ratio: 10,
+  prs_percentile: 0,
 };
 
 export const GeneContext = createContext<{

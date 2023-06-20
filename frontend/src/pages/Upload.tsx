@@ -32,6 +32,7 @@ export const Upload: FC = () => {
         apoe_risk_ratio: response.data.apoe_risk_ratio,
         risk_factors: response.data.risk_factors,
         risk_ratio: response.data.risk_ratio,
+        prs_percentile:response.data.prs_percentile,
       });
     } catch (error) {
       console.error(error);

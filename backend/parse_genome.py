@@ -2,6 +2,7 @@ import argparse
 from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS, PRS_GENES
 import random
 from scipy.stats import norm
+
 class NoRiskDetectedError(Exception):
     def __init__(self):
         pass
@@ -23,7 +24,7 @@ class AlzheimerRiskProfiler:
         self.rs429358 = None
         self.rs7412 = None
         self.apoe_genotype = 'Unknown'
-        self.prs = 0 # polygenic risk score
+        self.prs_percentile = 0 # polygenic risk score
         
 
     def increment_risk(self, risk_ratio):
@@ -186,13 +187,13 @@ class AlzheimerRiskProfiler:
         self.get_apoe_modifiers(genome_dict)
         self.get_prs(genome_dict)
     
-    def calculate_prs_percentile(sample,self):
+    def calculate_prs_percentile(self,sample):
         """
         Calculates users PRS based on standard deviation and mean of monte carlos simulation
         :return: percentile of users personsal risk score as percentage
         """
-        mean = 0.34411544189562
-        std_dev = 0.2390461770780585
+        mean = 0.3413453599999998 
+        std_dev = 0.49243292092067764
         z_score = (sample - mean) / std_dev  # Calculate the z-score
         percentile = norm.cdf(z_score) * 100  # Calculate the percentile
         return percentile
@@ -211,7 +212,7 @@ class AlzheimerRiskProfiler:
                 weight = PRS_GENES[rsid]['weight']
                 risk_ratio = PRS_GENES[rsid]['risk_ratio']
                 risk_multiplier = user_genotype.count(risk_allele) # 0/1/2
-                prs += (risk_multiplier * risk_ratio * weight)
+                prs += (risk_multiplier * risk_ratio)
 
                 gene_name = PRS_GENES[rsid]['gene_name']
 
@@ -228,7 +229,8 @@ class AlzheimerRiskProfiler:
                 risk_ratio = 'Variant not included'
                 user_genotype = 'NA'
         # store prs
-        self.prs = prs
+        self.prs_percentile = self.calculate_prs_percentile(prs)
+        print(prs);
         return prs
     
     
