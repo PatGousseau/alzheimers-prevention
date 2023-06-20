@@ -1,9 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { GeneContext } from "../context/geneContext";
 
 export const RiskScoreCard: FC = () => {
+  const { state, updateState } = useContext(GeneContext);
   return (
     <Stack
       direction="row"
@@ -13,8 +15,8 @@ export const RiskScoreCard: FC = () => {
       <Stack sx={{ width: 356, pr:2 }}>
         <div style={{ height: "100%" }}>
           <CircularProgressbar
-            value={60}
-            text={`${60}%`}
+            value={state.overall_risk_percentile}
+            text={`${state.overall_risk_percentile}%`}
             styles={buildStyles({
               textColor: "#000000",
               pathColor: `#EBB502`,

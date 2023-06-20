@@ -71,3 +71,8 @@ PRS_GENES = dict(
     rs3752246=dict(risk_allele='C',  weight=0.8255, risk_ratio=-0.25,frequency=0.1745, gene_name='ABCA7'),
     rs7274581=dict(risk_allele='A',  weight=0.90595, risk_ratio=0.1,frequency=0.094, gene_name='CASS4'),
 )
+
+APOE_GENES = dict(
+    rs429358=dict(risk_allele='C',  weight=0.07, risk_ratio=-0.47, frequency=0.07, gene_name='APOE'),
+    rs7412=dict(risk_allele='T', weight=0.14, risk_ratio=1.03, frequency=0.14, gene_name='APOE'),
+)
