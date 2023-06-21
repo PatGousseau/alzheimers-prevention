@@ -219,15 +219,15 @@ class AlzheimerRiskProfiler:
                 prs += (risk_multiplier * risk_ratio)
 
                 gene_name = PRS_GENES[rsid]['gene_name']
-
-                # Append risk factor information to running list
-                self.risk_factors.append(dict(
-                    variant=rsid,
-                    risk_ratio=risk_ratio,
-                    genotype=user_genotype,
-                    gene_name=gene_name,
-                    significance=weight,
-                ))    
+                if risk_multiplier > 0:
+                    # Append risk factor information to running list
+                    self.risk_factors.append(dict(
+                        variant=rsid,
+                        risk_ratio=risk_ratio,
+                        genotype=user_genotype,
+                        gene_name=gene_name,
+                        significance=weight,
+                    ))    
   
             except KeyError:
                 risk_ratio = 'Variant not included'
@@ -235,7 +235,6 @@ class AlzheimerRiskProfiler:
         # store prs
         self.prs_percentile = self.calculate_prs_percentile(prs)
         self.get_overall_risk(prs,genome_dict)
-        # print(prs)
         return prs
     
     def get_overall_risk(self, prs,genome_dict):

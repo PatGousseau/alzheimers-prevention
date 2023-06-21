@@ -34,7 +34,7 @@ export const FactorCard: FC<{
           text={progressText}
           circleRatio={
             0.75
-          } /* Make the circle only 0.75 of the full diameter */
+          }
           styles={{
             trail: {
               strokeLinecap: "butt",

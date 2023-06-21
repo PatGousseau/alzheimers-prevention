@@ -26,9 +26,9 @@ export const GeneGrid = (props: {
             Name
           </Typography>
         )}
-          <Typography variant="h5" sx={{ flex: 1 }}>
-            Variant
-          </Typography>
+        <Typography variant="h5" sx={{ flex: 1 }}>
+          Variant
+        </Typography>
         <Typography variant="h5" sx={{ flex: 1 }}>
           Genotype
         </Typography>
@@ -37,7 +37,7 @@ export const GeneGrid = (props: {
         </Typography>
         {props.fullInfo && (
           <Typography variant="h5" sx={{ flex: 1 }}>
-            Risk Impact
+            Weight
           </Typography>
         )}
 

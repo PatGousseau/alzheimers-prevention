@@ -1,16 +1,14 @@
 export const getColour = (value:number) => {
     return value > 90
-    ? "#B7394F"
-    : value > 71 && value <= 90
-    ? "#FF7272"
-    : value > 51 && value <= 70
-    ? "#EBB502"
-    : value > 26 && value <= 45
-    ? "#7FB29F"
-    :"#4F7F72"
+      ? "#B7394F"
+      : value > 71 && value <= 90
+      ? "#FF7272"
+      : value > 51 && value <= 70
+      ? "#EBB502"
+      : value > 26 && value <= 50
+      ? "#7FB29F"
+      : "#4F7F72";
   }
-
-
 
   export const getApoeStyles = (apoeStatus:string): { colour: string; value: number } => {
     let colour = '';

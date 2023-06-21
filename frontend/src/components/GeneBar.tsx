@@ -8,7 +8,11 @@ interface GeneBarProps {
   risk_factors: RiskFactor;
 }
 
-export const GeneBar: FC<GeneBarProps> = ({ fullInfo,boxShadow, risk_factors }) => {
+export const GeneBar: FC<GeneBarProps> = ({
+  fullInfo,
+  boxShadow,
+  risk_factors,
+}) => {
   return (
     <Stack
       direction="row"
@@ -20,10 +24,10 @@ export const GeneBar: FC<GeneBarProps> = ({ fullInfo,boxShadow, risk_factors }) 
         </Typography>
       )}
       <Typography variant="body1" sx={{ flex: 1 }}>
-        {risk_factors.genotype}
+        {risk_factors.variant}
       </Typography>
       <Typography variant="body1" sx={{ flex: 1 }}>
-        {risk_factors.variant}
+        {risk_factors.genotype}
       </Typography>
       <Typography variant="body1" sx={{ flex: 1 }}>
         ...

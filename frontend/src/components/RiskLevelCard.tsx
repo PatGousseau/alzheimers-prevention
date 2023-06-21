@@ -12,7 +12,7 @@ export const RiskLevelCard: FC = () => {
     {
         color: "#7FB29F",
         header: "Typical",
-        percentage: "26 - 45%",
+        percentage: "26 - 50%",
     },
     {
         color: "#EBB502",
