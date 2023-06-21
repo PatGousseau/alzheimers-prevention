@@ -8,7 +8,7 @@ export const DementiaRiskFactors: FC = () => {
   const riskFactors = [
     { relevantGenes: 4, label: "Hearing loss" },
     { relevantGenes: 4, label: "Vitamin D" },
-    { relevantGenes: 4, label: "Chlorine" },
+    { relevantGenes: 4, label: "Choline" },
     { relevantGenes: 4, label: "Hearing loss" },
     { relevantGenes: 4, label: "Glucose metabolism" },
     { relevantGenes: 4, label: "Inflammation" },

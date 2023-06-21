@@ -13,11 +13,12 @@ import {
   Link
 } from 'react-router-dom';
 import { GeneContext } from "../context/geneContext";
+import { getApoeStyles } from "../utils/utils";
 
 
 export const Overview: FC = () => {
   const { state } = useContext(GeneContext);
-
+  const apoeFactorValue = getApoeStyles(state.apoe_genotype);
   return (
     <Stack sx={{ m: 4 }}>
       <Grid container spacing={4}>
@@ -47,7 +48,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="APOE Interdependent" progressValue={0} />
+            <FactorCard header="APOE Interdependent" progressValue={apoeFactorValue.value} progressText={state.apoe_genotype} />
           </Box>
         </Grid>
 
@@ -61,7 +62,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="APOE Independent" progressValue={state.prs_percentile} />
+            <FactorCard header="APOE Independent" progressValue={state.prs_percentile} progressText={`${state.prs_percentile}%`} />
           </Box>
         </Grid>
         <Grid item xs={4}>
@@ -74,7 +75,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="Dementia associated risk factor" progressValue={0} />
+            <FactorCard header="Dementia associated risk factor" progressValue={0} progressText={""} />
           </Box>
         </Grid>
       </Grid>

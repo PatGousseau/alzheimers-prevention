@@ -1,13 +1,20 @@
 import { ButtonBase, Stack, Typography } from "@mui/material";
 import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { ReactComponent as HappyFace } from "../assets/happy_face.svg";
+import { GeneContext } from "../context/geneContext";
+import { getColour } from "../utils/utils";
 
+
+// TODO: pull out color choosing function 
 export const FactorCard: FC<{
   header: string;
   progressValue: number;
-}> = ({ header, progressValue }) => {
+  progressText: string;
+}> = ({ header, progressValue,progressText }) => {
+  const { state } = useContext(GeneContext);
+
   return (
     <Stack
       direction="row"
@@ -21,13 +28,10 @@ export const FactorCard: FC<{
         },
       }}
     >
-      {/* <Stack sx={{ height: 120 }}>
-        <HappyFace/>
-      </Stack> */}
       <Stack sx={{ height: 120 }}>
         <CircularProgressbar
           value={progressValue}
-          text={`${progressValue}%`}
+          text={progressText}
           circleRatio={
             0.75
           } /* Make the circle only 0.75 of the full diameter */
@@ -41,12 +45,7 @@ export const FactorCard: FC<{
               strokeLinecap: "butt",
               transform: "rotate(-135deg)",
               transformOrigin: "center center",
-              stroke:
-                progressValue > 75
-                  ? "#FF7272"
-                  : progressValue > 50 && progressValue < 75
-                  ? "#EBB502"
-                  : "#4F7F72",
+              stroke: getColour(progressValue),
             },
             text: {
               fill: "black", // Set the text color to black
@@ -60,24 +59,16 @@ export const FactorCard: FC<{
         <Typography
           variant="subtitle1"
           sx={{
-            color:
-              progressValue > 75
-                ? "#FF7272"
-                : progressValue > 50 && progressValue <= 75
-                ? "#EBB502"
-                : progressValue <= 50
-                ? "#4F7F72"
-                : "#000000", // default color if none of the conditions match
+            color: getColour(progressValue),
           }}
         >
-          {progressValue > 75
+          {progressValue >= 75 || progressValue === 0
             ? "HIGH"
-            : progressValue > 50 && progressValue <= 75
+            : progressValue > 50 && progressValue < 75
             ? "MEDIUM"
             : progressValue <= 50
             ? "LOW"
             : "UNKNOWN"}{" "}
-          {/* fallback text if none of the conditions match */}
         </Typography>
       </Stack>
     </Stack>

@@ -235,11 +235,13 @@ class AlzheimerRiskProfiler:
         # store prs
         self.prs_percentile = self.calculate_prs_percentile(prs)
         self.get_overall_risk(prs,genome_dict)
-        
+        # print(prs)
         return prs
     
     def get_overall_risk(self, prs,genome_dict):
         overall_risk = prs
+        
+        
         for rsid in APOE_GENES:
             try:
                 user_genotype = genome_dict[rsid] # ex: user_genotype = AT
@@ -252,6 +254,8 @@ class AlzheimerRiskProfiler:
                 
                 overall_risk += (risk_multiplier * risk_ratio)    
                 
+                
+                
             except KeyError:
                 risk_ratio = 'Variant not included'
                 user_genotype = 'NA'
@@ -259,6 +263,8 @@ class AlzheimerRiskProfiler:
 
        
         self.overall_risk_percentile =  self.get_overall_risk_percentile(overall_risk, df.score, df.percentile)
+        
+        
         return overall_risk
     
     def get_overall_risk_percentile(self, sample, score, percentiles):
@@ -318,6 +324,5 @@ if __name__ == '__main__':
     print(f'APOE related risk ratio: {profiler.apoe_risk_ratio}')
     print(f'APOE independent risk ratio of {profiler.risk_ratio}')
     print(f'Your APOE genotype is {profiler.apoe_genotype}')
-    print(f'Your overall risk is {profiler.overall_risk}')
         
 

@@ -19,13 +19,6 @@ export const GeneGrid = (props: {
           </Typography>
         </>
       )}
-      {props.prs_percentile && (
-        <>
-          <Typography variant="h3" textAlign="center" sx={{ my: 4 }}>
-            {props.prs_percentile}
-          </Typography>
-        </>
-      )}
 
       <Stack direction="row" sx={{ p: 2 }}>
         {props.fullInfo && (
