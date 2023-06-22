@@ -1,4 +1,4 @@
-## Preventia (WIP)
+## Alzheimers's Genetic Analyzer (WIP)
 Web application allowing users to analyze their raw 23andMe files to screen for potential increases in Alzheimer's risk based on known genetic markers*. 
 
 React frontend, Flask backend, deployed on AWS.
