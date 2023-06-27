@@ -189,7 +189,9 @@ class AlzheimerRiskProfiler:
 
         self.get_apoe_risk(genome_dict)
         self.get_apoe_modifiers(genome_dict)
-        self.get_prs(genome_dict)
+        prs = self.get_prs(genome_dict)
+        self.prs_percentile = self.calculate_prs_percentile(prs)
+        self.get_overall_risk(prs,genome_dict)
     
     def calculate_prs_percentile(self,sample):
         """
@@ -238,37 +240,30 @@ class AlzheimerRiskProfiler:
         return prs
     
     def get_overall_risk(self, prs,genome_dict):
+        """
+        Gets overall risk by adding the risk of APOE to the current polygenic risk score
+        """
         overall_risk = prs
-        
         
         for rsid in APOE_GENES:
             try:
                 user_genotype = genome_dict[rsid] # ex: user_genotype = AT
-                
                 risk_allele = APOE_GENES[rsid]['risk_allele'] # risk allele is one character such as 'A'
-                
                 risk_ratio = APOE_GENES[rsid]['risk_ratio']
-                
                 risk_multiplier = user_genotype.count(risk_allele) # 0/1/2
-                
                 overall_risk += (risk_multiplier * risk_ratio)    
-                
-                
                 
             except KeyError:
                 risk_ratio = 'Variant not included'
                 user_genotype = 'NA'
-        df = pd.read_csv('overall_risk_score_simulation_results')
 
-       
+        df = pd.read_csv('overall_risk_score_simulation_results')
         self.overall_risk_percentile =  self.get_overall_risk_percentile(overall_risk, df.score, df.percentile)
-        
         
         return overall_risk
     
     def get_overall_risk_percentile(self, sample, score, percentiles):
         return percentiles[np.argmin(np.abs(score - (sample)))] * 100
-    
     
     
     def create_synthetic_genome_dict(self):

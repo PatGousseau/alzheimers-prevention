@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import { GeneContext } from "../context/geneContext";
 import { getApoeStyles } from "../utils/utils";
+import { RiskScoreCard2 } from "../components/RiskScoreCard2";
 
 
 export const Overview: FC = () => {
@@ -24,18 +25,21 @@ export const Overview: FC = () => {
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography fontWeight={"bold"} variant="h1">
-            Your Genetic Risk
+            Your Risk
           </Typography>
         </Grid>
-        <Grid item xs={9}>
-          <RiskScoreCard />
+        <Grid item xs={4}>
+          <RiskScoreCard2 title={"Risk of Alzheimer’s Disease"} subtitle={"Lifetime risk of Alzheimer’s Disease based on your genetics and gender alone"} />
+        </Grid>
+        <Grid item xs={4}>
+          <RiskScoreCard2 title={"Risk of Subjective Cognitive Decline"} subtitle={"Lifetime risk of experiencing Subjective Cognitive Decline based on gender only"} />
         </Grid>
         <Grid item xs={3}>
-          <RiskLevelCard />
+          {/* <RiskLevelCard /> */}
         </Grid>
         <Grid item xs={12}>
           <Typography fontWeight={"bold"} variant="h1">
-            Key contributing factors
+            Key contributing genes
           </Typography>
         </Grid>
         <Grid item xs={4}>
@@ -48,7 +52,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="APOE Interdependent" progressValue={apoeFactorValue.value} progressText={state.apoe_genotype} />
+            <FactorCard header="APOE status" progressValue={apoeFactorValue.value} progressText={state.apoe_genotype} />
           </Box>
         </Grid>
 
@@ -62,7 +66,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="APOE Independent" progressValue={state.prs_percentile} progressText={`${state.prs_percentile}%`} />
+            <FactorCard header="Polygenic risk score" progressValue={state.prs_percentile} progressText={`${state.prs_percentile}%`} />
           </Box>
         </Grid>
         <Grid item xs={4}>
@@ -75,7 +79,7 @@ export const Overview: FC = () => {
               color: "inherit",
             }}
           >
-            <FactorCard header="Dementia associated risk factor" progressValue={0} progressText={""} />
+            <FactorCard header="Other relevant genes" progressValue={0} progressText={""} />
           </Box>
         </Grid>
       </Grid>

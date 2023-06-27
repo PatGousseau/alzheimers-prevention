@@ -35,7 +35,7 @@ function App() {
         fontWeight: 'bold',
       },
       h4: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
       },
       h5: {
