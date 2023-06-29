@@ -1,7 +1,6 @@
-import { Button, Grid, Stack, Tab, Tabs, Box, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { GeneGrid } from "../components/GeneGrid";
 import BackButton from "../components/BackButton";
 
 export const Recommendation: FC = () => {

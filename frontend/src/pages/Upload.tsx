@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GeneContext } from "../context/geneContext";
 
 export const Upload: FC = () => {
-  const { state, updateState } = useContext(GeneContext);
+  const { updateState } = useContext(GeneContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

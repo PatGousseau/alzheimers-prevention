@@ -1,7 +1,6 @@
 import { Grid, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import BackButton from "../components/BackButton";
-import LaunchIcon from '@mui/icons-material/Launch';
 import DementiaAssociatedToolTip from "../components/DementiaAssociatedToolTip";
 
 export const DementiaRiskFactors: FC = () => {
@@ -18,7 +17,7 @@ export const DementiaRiskFactors: FC = () => {
     <Stack sx={{ m: 4 }}>
       <BackButton />
       <Typography variant="h1" textAlign="center" sx={{ my: 4 }}>
-        Dementia-Associated Risk Factor Genes
+        Other Relevant Genes
       </Typography>
       <Grid container spacing={2} justifyContent="center">
         {riskFactors.map((card, index) => (

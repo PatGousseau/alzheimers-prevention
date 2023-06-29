@@ -4,7 +4,7 @@ import BackButton from "../components/BackButton";
 import { GeneGrid } from "../components/GeneGrid";
 import { GeneContext } from "../context/geneContext";
 
-export const APOEInterdependent: FC = () => {
+export const APOEStatus: FC = () => {
   const { state } = useContext(GeneContext);
   return (
     <Stack sx={{ m: 4 }}>

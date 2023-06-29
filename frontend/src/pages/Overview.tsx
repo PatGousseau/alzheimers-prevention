@@ -6,15 +6,13 @@ import {
   Grid,
 } from "@mui/material";
 import { FC, useContext } from "react";
-import { RiskLevelCard } from "../components/RiskLevelCard";
 import { FactorCard } from "../components/FactorCard";
-import { RiskScoreCard } from "../components/RiskScoreCard";
 import {
   Link
 } from 'react-router-dom';
 import { GeneContext } from "../context/geneContext";
 import { getApoeStyles } from "../utils/utils";
-import { RiskScoreCard2 } from "../components/RiskScoreCard2";
+import { RiskScoreCard } from "../components/RiskScoreCard";
 
 
 export const Overview: FC = () => {
@@ -29,10 +27,10 @@ export const Overview: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <RiskScoreCard2 title={"Risk of Alzheimer’s Disease"} subtitle={"Lifetime risk of Alzheimer’s Disease based on your genetics and gender alone"} />
+          <RiskScoreCard title={"Risk of Alzheimer’s Disease"} subtitle={"Lifetime risk of Alzheimer’s Disease based on your genetics and gender alone"} />
         </Grid>
         <Grid item xs={4}>
-          <RiskScoreCard2 title={"Risk of Subjective Cognitive Decline"} subtitle={"Lifetime risk of experiencing Subjective Cognitive Decline based on gender only"} />
+          <RiskScoreCard title={"Risk of Subjective Cognitive Decline"} subtitle={"Lifetime risk of experiencing Subjective Cognitive Decline based on gender only"} />
         </Grid>
         <Grid item xs={3}>
           {/* <RiskLevelCard /> */}
@@ -45,7 +43,7 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/apoeInterdependent"
+            to="/apoe-status"
             sx={{
               width: "100%",
               textDecoration: "none",
@@ -59,7 +57,7 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/apoeIndependent"
+            to="/polygenic-risk-score"
             sx={{
               width: "100%",
               textDecoration: "none",
@@ -72,11 +70,12 @@ export const Overview: FC = () => {
         <Grid item xs={4}>
           <Box
             component={Link}
-            to="/dementiaRiskFactors"
+            to="/other-genes"
             sx={{
               width: "100%",
               textDecoration: "none",
               color: "inherit",
+              
             }}
           >
             <FactorCard header="Other relevant genes" progressValue={0} progressText={""} />

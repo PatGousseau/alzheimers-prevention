@@ -2,8 +2,8 @@ import './App.css';
 import { Overview } from './pages/Overview';
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import "@fontsource/montserrat";
-import { APOEInterdependent } from './pages/APOEInterdependent';
-import { APOEIndependent } from './pages/APOEIndependent';
+import { APOEStatus } from './pages/ApoeStatus';
+import { PolygenicRiskScore } from './pages/PolygenicRiskScore';
 import { DementiaRiskFactors } from './pages/DementiaRiskFactors';
 import { Recommendation } from './pages/Recommendation';
 import { Routes, Route } from 'react-router-dom';
@@ -64,10 +64,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Upload />} />
           <Route path="/overview" element={<Overview />} />
-          <Route path="/apoeIndependent" element={<APOEIndependent />} />
-          <Route path="/apoeInterdependent" element={<APOEInterdependent />} />
+          <Route path="/polygenic-risk-score" element={<PolygenicRiskScore />} />
+          <Route path="/apoe-status" element={<APOEStatus />} />
           <Route
-            path="/dementiaRiskFactors"
+            path="/other-genes"
             element={<DementiaRiskFactors />}
           />
           <Route path="/recommendation" element={<Recommendation />} />

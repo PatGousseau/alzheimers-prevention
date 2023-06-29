@@ -22,6 +22,7 @@ export const FactorCard: FC<FactorCardProps> = ({ header, progressValue, progres
       sx={{
         boxShadow: 3,
         p: 2,
+        height:"75%",
         borderRadius: "16px",
         "&:hover": {
           backgroundColor: "#ececec",
