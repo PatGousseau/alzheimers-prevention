@@ -28,6 +28,8 @@ class AlzheimerRiskProfiler:
         self.apoe_genotype = 'Unknown'
         self.prs_percentile = 0 # polygenic risk score
         self.overall_risk_percentile = 0
+        self.risk_percentile_with_intervention = 0
+        self.gender = 'Male'
         
 
     def increment_risk(self, risk_ratio):
@@ -114,7 +116,6 @@ class AlzheimerRiskProfiler:
         ))
 
 
-# TODO: pq on utilise pas le major? 
     def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
         """
         Get risk given a known risk multiplying genetic factor RSID and the client's genotype.
@@ -192,6 +193,7 @@ class AlzheimerRiskProfiler:
         prs = self.get_prs(genome_dict)
         self.prs_percentile = self.calculate_prs_percentile(prs)
         self.get_overall_risk(prs,genome_dict)
+        self.get_risk_with_intervention(round(self.overall_risk_percentile),self.gender)
     
     def calculate_prs_percentile(self,sample):
         """
@@ -288,7 +290,18 @@ class AlzheimerRiskProfiler:
             genotype2 = risk_allele if random.random() < freq else 'X' 
             genome_dict[rsid] = genotype1 + genotype2
         return genome_dict
+    
 
+
+
+    def get_risk_from_percentile(self, percentile, gender, df):
+        return df.loc[df['Percentile'] == percentile, gender].values[0]
+
+    def get_risk_with_intervention(self, percentile, gender):
+        df = pd.read_csv('percentile_to_risk.csv')
+        raw_risk = self.get_risk_from_percentile(percentile, gender, df)
+        risk_with_intervention = raw_risk * 0.4 
+        self.risk_percentile_with_intervention = df.iloc[(df[gender] - risk_with_intervention).abs().argsort()[0]]['Percentile']
         
         
 
@@ -318,5 +331,7 @@ if __name__ == '__main__':
     print(f'APOE related risk ratio: {profiler.apoe_risk_ratio}')
     print(f'APOE independent risk ratio of {profiler.risk_ratio}')
     print(f'Your APOE genotype is {profiler.apoe_genotype}')
+    print(f'Your risk percentile is {profiler.overall_risk_percentile}')
+    print(f'Your risk percentile with intervention is {profiler.risk_percentile_with_intervention}')
         
 

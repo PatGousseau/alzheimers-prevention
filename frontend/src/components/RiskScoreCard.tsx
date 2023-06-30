@@ -12,7 +12,7 @@ interface RiskScoreCardProps {
 export const RiskScoreCard: FC<RiskScoreCardProps> = ({ title, subtitle }) => {
   const { state } = useContext(GeneContext);
   const progressValue = state.overall_risk_percentile;
-
+console.log(progressValue)
   return (
     <Stack spacing={2} sx={{ boxShadow: 3, p: 2, borderRadius: "16px", width: "440px" }}>
       <Stack sx={{ textAlign: "center" }} direction="column" justifyContent="center">
@@ -36,7 +36,7 @@ export const RiskScoreCard: FC<RiskScoreCardProps> = ({ title, subtitle }) => {
           }}
         >
           <Stack sx={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-            <Circle percentage={50} size={73} colour={"#A97A01"} />
+            <Circle percentage={progressValue} size={73} colour={"#A97A01"} />
             <Typography variant="body1" sx={{ pt: 2 }}>
               Your risk
             </Typography>
@@ -58,7 +58,7 @@ export const RiskScoreCard: FC<RiskScoreCardProps> = ({ title, subtitle }) => {
           }}
         >
           <Stack sx={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-            <Circle percentage={12} size={73} colour={"#396D64"} />
+            <Circle percentage={state.risk_percentile_with_intervention} size={73} colour={"#396D64"} />
             <Typography variant="body1" sx={{ pt: 2 }}>
               With intervention
             </Typography>

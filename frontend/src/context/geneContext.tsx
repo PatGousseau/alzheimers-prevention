@@ -8,6 +8,7 @@ export interface RiskState {
   risk_ratio: number;
   prs_percentile:number;
   overall_risk_percentile: number;
+  risk_percentile_with_intervention: number;
 }
 
 export interface RiskFactor {
@@ -42,6 +43,7 @@ const initialState: RiskState = {
   risk_ratio: 10,
   prs_percentile: 0,
   overall_risk_percentile: 0,
+  risk_percentile_with_intervention: 0,
 };
 
 export const GeneContext = createContext<{
