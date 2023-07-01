@@ -76,3 +76,8 @@ APOE_GENES = dict(
     rs429358=dict(risk_allele='C',  weight=0.07, risk_ratio=1.03, frequency=0.07, gene_name='APOE'),
     rs7412=dict(risk_allele='T', weight=0.14, risk_ratio=-0.47, frequency=0.14, gene_name='APOE'),
 )
+
+PARKINSONS_GENES = dict(
+    rs34637584=dict(risk_allele='A',  weight=0.07, risk_ratio=1.03, frequency=0.07, gene_name='LRRK2', p_value=1),
+    rs76763715=dict(risk_allele='C', weight=0.14, risk_ratio=-0.47, frequency=0.14, gene_name='GBA', p_value=1),
+)

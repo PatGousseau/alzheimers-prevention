@@ -9,6 +9,7 @@ export interface RiskState {
   prs_percentile:number;
   overall_risk_percentile: number;
   risk_percentile_with_intervention: number;
+  other_relevant_genes: RiskFactor[];
 }
 
 export interface RiskFactor {
@@ -18,6 +19,7 @@ export interface RiskFactor {
   significance: string;
   variant: string;
   evidence: number;
+  implication: string;
 }
 
 const initialState: RiskState = {
@@ -30,6 +32,7 @@ const initialState: RiskState = {
       significance: '',
       variant: '',
       evidence: 0,
+      implication: '...'
     },
   ],
   apoe_risk_ratio: 0,
@@ -41,12 +44,24 @@ const initialState: RiskState = {
       significance: '',
       variant: '',
       evidence: 0,
+      implication: '...'
     },
   ],
   risk_ratio: 10,
   prs_percentile: 0,
   overall_risk_percentile: 0,
   risk_percentile_with_intervention: 0,
+  other_relevant_genes: [
+    {
+      gene_name: '',
+      genotype: '',
+      risk_ratio: 0,
+      significance: '',
+      variant: '',
+      evidence: 0,
+      implication: '...'
+    },
+  ],
 };
 
 export const GeneContext = createContext<{

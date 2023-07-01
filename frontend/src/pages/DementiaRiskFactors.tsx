@@ -1,17 +1,18 @@
 import { Grid, Stack, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import BackButton from "../components/BackButton";
-import DementiaAssociatedToolTip from "../components/DementiaAssociatedToolTip";
+import { DementiaAssociatedToolTip } from "../components/DementiaAssociatedToolTip";
+import { GeneContext } from "../context/geneContext";
+
 
 export const DementiaRiskFactors: FC = () => {
-  const riskFactors = [
-    { relevantGenes: 4, label: "Hearing loss" },
-    { relevantGenes: 4, label: "Vitamin D" },
-    { relevantGenes: 4, label: "Choline" },
-    { relevantGenes: 4, label: "Hearing loss" },
-    { relevantGenes: 4, label: "Glucose metabolism" },
-    { relevantGenes: 4, label: "Inflammation" },
+  const { state } = useContext(GeneContext);
+  const numRelevantGenes = state.other_relevant_genes.length;
+  const geneCategories = [
+    { relevantGenes: numRelevantGenes, label: "Parkinson's disease" },
   ];
+
+  
 
   return (
     <Stack sx={{ m: 4 }}>
@@ -19,8 +20,8 @@ export const DementiaRiskFactors: FC = () => {
       <Typography variant="h1" textAlign="center" sx={{ my: 4 }}>
         Other Relevant Genes
       </Typography>
-      <Grid container spacing={2} justifyContent="center">
-        {riskFactors.map((card, index) => (
+      <Grid container spacing={2}>
+        {geneCategories.map((card, index) => (
           <Grid item xs={4} key={card.relevantGenes}>
             <Stack
               direction="row"
@@ -32,7 +33,7 @@ export const DementiaRiskFactors: FC = () => {
               </Stack>
 
               <Stack sx={{marginLeft: "auto", alignItems: "center"}}>
-                <DementiaAssociatedToolTip/>
+                <DementiaAssociatedToolTip RiskFactorList={state.other_relevant_genes}/>
               </Stack>
             </Stack>
             {/* Add other components/content to the stack */}

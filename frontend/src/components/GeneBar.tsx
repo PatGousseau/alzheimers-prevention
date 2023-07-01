@@ -30,7 +30,7 @@ export const GeneBar: FC<GeneBarProps> = ({
         {risk_factors.genotype}
       </Typography>
       <Typography variant="body1" sx={{ flex: 1 }}>
-        ...
+        {risk_factors.implication}
       </Typography>
       {/* {fullInfo && (
         <Typography variant="body1" sx={{ flex: 1 }}>

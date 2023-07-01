@@ -1,5 +1,5 @@
 import argparse 
-from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS, PRS_GENES, APOE_GENES
+from risk_data import APOE_INDEPENDENT_RISK_FACTORS, APOE_RISK_FACTORS, PRS_GENES, APOE_GENES, PARKINSONS_GENES
 import random
 from scipy.stats import norm
 import pandas as pd
@@ -22,6 +22,7 @@ class AlzheimerRiskProfiler:
 
         self.risk_factors = [] # APOE-independent risk factors
         self.apoe_risk_factors = []  # APOE-related risk factors
+        self.other_genes = [] # other genes that affect Dementia
 
         self.rs429358 = None
         self.rs7412 = None
@@ -51,6 +52,7 @@ class AlzheimerRiskProfiler:
         self.prs_percentile = self.calculate_prs_percentile(prs)
         self.get_overall_risk(prs,genome_dict)
         self.get_risk_with_intervention(round(self.overall_risk_percentile),self.gender)
+        self.get_other_genes(genome_dict)
         
 
     def increment_risk(self, risk_ratio):
@@ -135,8 +137,22 @@ class AlzheimerRiskProfiler:
             gene_name='APOE',
             significance=1.00e-300,
             evidence=5,
+            implication=self.get_apoe_implication(apoe_genotype)
         ))
 
+    def get_apoe_implication(self, genotype):
+        if genotype == "E2/E3" or genotype == "E2/E2":
+            return "You have decreased risk for developing Alzheimer's disease"
+        elif genotype == "E3/E3":
+            return "You have normal risk for developing Alzheimer's disease"
+        elif genotype == "E3/E4" or genotype == "E4/E2":
+            return "You have slightly elevated risk for Alzheimer's disease"
+        elif genotype == "E4/E4":
+            return "You have elevated risk for Alzheimer's disease"
+        else:
+            return "Unknown genotype"
+
+    
 
     def get_risk_from_rsid(self, rsid: str, user_genotype) -> float:
         """
@@ -218,6 +234,42 @@ class AlzheimerRiskProfiler:
         percentile = norm.cdf(z_score) * 100  # Calculate the percentile
         return percentile
 
+    def get_other_genes(self, genome_dict):
+        """
+        Gets polygenic risk score of individual by checking against known SNPs
+        """
+        for rsid in PARKINSONS_GENES:
+            
+            try:
+                user_genotype = genome_dict[rsid] # ex: user_genotype = AT
+                risk_allele = PARKINSONS_GENES[rsid]['risk_allele'] # risk allele is one character such as 'A'
+                weight = PARKINSONS_GENES[rsid]['weight']
+                risk_ratio = PARKINSONS_GENES[rsid]['risk_ratio']
+                risk_multiplier = user_genotype.count(risk_allele) # 0/1/2
+                gene_name = PARKINSONS_GENES[rsid]['gene_name']
+                # Append risk factor information to running list
+                self.other_genes.append(dict(
+                    variant=rsid,
+                    risk_ratio=risk_ratio,
+                    genotype=user_genotype,
+                    gene_name=gene_name,
+                    significance=weight,
+                    evidence=self.calculate_evidence_level(PARKINSONS_GENES[rsid]['p_value']),
+                    implication=self.get_parkinsons_implication(risk_multiplier),
+                ))    
+  
+            except KeyError:
+                risk_ratio = 'Variant not included'
+                user_genotype = 'NA'
+    
+    def get_parkinsons_implication(self, num_risk_allele):
+        if num_risk_allele == 1:
+            return "You carry one risk allele for elevated Parkinson's risk"
+        elif num_risk_allele == 2:
+            return "You carry two risk alleles for elevated Parkinson's risk"
+        else:
+            return "You do not carry the variants for elevated Parkinson's risk"
+
 
     def get_prs(self, genome_dict):
         """
@@ -243,7 +295,9 @@ class AlzheimerRiskProfiler:
                         genotype=user_genotype,
                         gene_name=gene_name,
                         significance=weight,
-                        evidence=self.calculate_evidence_level(PRS_GENES[rsid]['p_value'])
+                        evidence=self.calculate_evidence_level(PRS_GENES[rsid]['p_value']),
+                        implication='...',
+
                     ))    
   
             except KeyError:
@@ -346,5 +400,6 @@ if __name__ == '__main__':
     print(f'Your APOE genotype is {profiler.apoe_genotype}')
     print(f'Your risk percentile is {profiler.overall_risk_percentile}')
     print(f'Your risk percentile with intervention is {profiler.risk_percentile_with_intervention}')
+    print(f'Your other genes are {profiler.other_genes}')
         
 

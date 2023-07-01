@@ -35,6 +35,7 @@ export const Upload: FC = () => {
         prs_percentile: Math.round(response.data.prs_percentile),
         overall_risk_percentile: response.data.overall_risk_percentile,
         risk_percentile_with_intervention: response.data.risk_percentile_with_intervention,
+        other_relevant_genes: response.data.other_relevant_genes,
       });
     } catch (error) {
       console.error(error);

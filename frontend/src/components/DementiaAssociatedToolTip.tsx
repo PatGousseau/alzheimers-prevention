@@ -5,6 +5,8 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { Button, ClickAwayListener, Stack } from '@mui/material';
 import { useState } from 'react';
 import { GeneGrid } from './GeneGrid';
+import { RiskFactor } from '../context/geneContext';
+import { FC } from "react";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -22,7 +24,12 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }));
 
-export default function DementiaAssociatedToolTip() {
+interface tooltipProps {
+  RiskFactorList: RiskFactor[];
+}
+  export const DementiaAssociatedToolTip: FC<tooltipProps> = ({
+    RiskFactorList
+  }) => {
   const [open, setOpen] = useState(false);
 
   const handleTooltipClose = () => {
@@ -44,7 +51,7 @@ export default function DementiaAssociatedToolTip() {
           disableTouchListener
           title={
             <Stack>
-              {/* <GeneGrid boxShadow={0} fullInfo={false} /> */}
+              <GeneGrid boxShadow={0} fullInfo={false} RiskFactorList={RiskFactorList} />
             </Stack>
           }
         >
