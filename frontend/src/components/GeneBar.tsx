@@ -16,7 +16,13 @@ export const GeneBar: FC<GeneBarProps> = ({
   return (
     <Stack
       direction="row"
-      sx={{ boxShadow: boxShadow, borderRadius: "8px", p: 2, mb: 2 }}
+      sx={{
+        boxShadow: boxShadow,
+        borderRadius: "8px",
+        p: 2,
+        mb: 2,
+        alignItems: "center", // Align items vertically
+      }}
     >
       {fullInfo && (
         <Typography variant="body1" sx={{ flex: 1 }}>
@@ -37,7 +43,12 @@ export const GeneBar: FC<GeneBarProps> = ({
           {risk_factors.significance}
         </Typography>
       )} */}
-      <Rating sx={{ flex: 1 }} name="read-only" value={risk_factors.evidence} readOnly />
+      <Rating
+        sx={{ flex: 1 }}
+        name="read-only"
+        value={risk_factors.evidence}
+        readOnly
+      />
     </Stack>
   );
 };

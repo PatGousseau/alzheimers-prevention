@@ -10,6 +10,7 @@ export interface RiskState {
   overall_risk_percentile: number;
   risk_percentile_with_intervention: number;
   other_relevant_genes: RiskFactor[];
+  gender: string,
 }
 
 export interface RiskFactor {
@@ -62,6 +63,7 @@ const initialState: RiskState = {
       implication: '...'
     },
   ],
+  gender: '',
 };
 
 export const GeneContext = createContext<{

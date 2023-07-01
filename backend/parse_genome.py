@@ -30,7 +30,7 @@ class AlzheimerRiskProfiler:
         self.prs_percentile = 0 # polygenic risk score
         self.overall_risk_percentile = 0
         self.risk_percentile_with_intervention = 0
-        self.gender = 'Male'
+        self.gender = 'Female'
 
     def get_risk(self):
         """
@@ -45,6 +45,9 @@ class AlzheimerRiskProfiler:
             if line.startswith('rs'):
                 rsid, chromosome, position, genotype = line.split()
                 genome_dict[rsid] = genotype
+                # determine gender
+                if chromosome == 'Y':
+                    self.gender = 'Male'
 
         self.get_apoe_risk(genome_dict)
         # self.get_apoe_modifiers(genome_dict)

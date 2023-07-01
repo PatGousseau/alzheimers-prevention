@@ -51,6 +51,10 @@ function App() {
         fontWeight: '400',
         color: 'gray',
       },
+      subtitle2: {
+        fontSize: 12,
+        fontWeight: '500',
+      },
       subtitle1: {
         fontSize: 20,
         fontWeight: '500',

@@ -36,6 +36,7 @@ export const Upload: FC = () => {
         overall_risk_percentile: response.data.overall_risk_percentile,
         risk_percentile_with_intervention: response.data.risk_percentile_with_intervention,
         other_relevant_genes: response.data.other_relevant_genes,
+        gender: response.data.gender,
       });
     } catch (error) {
       console.error(error);

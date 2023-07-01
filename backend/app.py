@@ -42,6 +42,7 @@ def analyze_genetics():
         overall_risk_percentile = profiler.overall_risk_percentile,
         risk_percentile_with_intervention = profiler.risk_percentile_with_intervention,
         other_relevant_genes = profiler.other_genes,
+        gender = profiler.gender,
     )
     return ret
 
