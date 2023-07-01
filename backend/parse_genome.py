@@ -189,7 +189,7 @@ class AlzheimerRiskProfiler:
                 genome_dict[rsid] = genotype
 
         self.get_apoe_risk(genome_dict)
-        self.get_apoe_modifiers(genome_dict)
+        # self.get_apoe_modifiers(genome_dict)
         prs = self.get_prs(genome_dict)
         self.prs_percentile = self.calculate_prs_percentile(prs)
         self.get_overall_risk(prs,genome_dict)

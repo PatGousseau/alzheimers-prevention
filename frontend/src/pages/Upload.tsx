@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, Stack, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -91,18 +91,20 @@ export const Upload: FC = () => {
         {isLoading ? (
           <CircularProgress size={24} />
         ) : (
-          <Button
-            variant="contained"
-            component="label"
-            sx={{ width: "fit-content" }}
-            disabled={isLoading}
-          >
-            Browse
-            <input hidden multiple type="file" onChange={handleInputChange} />
-          </Button>
+            <Button
+              variant="contained"
+              component="label"
+              sx={{ width: "fit-content" }}
+              disabled={isLoading}
+            >
+              Browse
+              <input hidden multiple type="file" onChange={handleInputChange} />
+            </Button>
         )}
         {error && (
-          <Alert severity="error" sx={{mt:4}}>{error}</Alert>
+          <Alert severity="error" sx={{ mt: 4 }}>
+            {error}
+          </Alert>
         )}
       </Stack>
     </Stack>

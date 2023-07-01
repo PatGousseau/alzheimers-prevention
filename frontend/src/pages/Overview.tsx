@@ -27,10 +27,10 @@ export const Overview: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <RiskScoreCard title={"Risk of Alzheimer’s Disease"} subtitle={"Lifetime risk of Alzheimer’s Disease based on your genetics and gender alone"} />
+          <RiskScoreCard title={"Risk of Alzheimer’s Disease"} subtitle={"Based on your genetics (APOE status and polygenic risk score), you fall in the following percentile of risk for your sex at birth (male)"} />
         </Grid>
         <Grid item xs={4}>
-          <RiskScoreCard title={"Risk of Subjective Cognitive Decline"} subtitle={"Lifetime risk of experiencing Subjective Cognitive Decline based on gender only"} />
+          {/* <RiskScoreCard title={"Risk of Subjective Cognitive Decline"} subtitle={"Lifetime risk of experiencing Subjective Cognitive Decline based on gender only"} /> */}
         </Grid>
         <Grid item xs={3}>
           {/* <RiskLevelCard /> */}
