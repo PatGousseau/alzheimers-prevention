@@ -35,11 +35,11 @@ export const GeneGrid = (props: {
         <Typography variant="h5" sx={{ flex: 1 }}>
           Implication
         </Typography>
-        {props.fullInfo && (
+        {/* {props.fullInfo && (
           <Typography variant="h5" sx={{ flex: 1 }}>
             Weight
           </Typography>
-        )}
+        )} */}
 
         <Stack direction="row" spacing={1} sx={{ flex: 1 }}>
           <Typography variant="h5">Evidence</Typography>

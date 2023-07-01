@@ -17,6 +17,7 @@ export interface RiskFactor {
   risk_ratio: number;
   significance: string;
   variant: string;
+  evidence: number;
 }
 
 const initialState: RiskState = {
@@ -28,6 +29,7 @@ const initialState: RiskState = {
       risk_ratio: 0,
       significance: '',
       variant: '',
+      evidence: 0,
     },
   ],
   apoe_risk_ratio: 0,
@@ -38,6 +40,7 @@ const initialState: RiskState = {
       risk_ratio: 0,
       significance: '',
       variant: '',
+      evidence: 0,
     },
   ],
   risk_ratio: 10,

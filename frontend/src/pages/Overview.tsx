@@ -23,7 +23,7 @@ export const Overview: FC = () => {
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography fontWeight={"bold"} variant="h1">
-            Your Risk
+            Your Genetic Risk Profile
           </Typography>
         </Grid>
         <Grid item xs={4}>
@@ -37,7 +37,7 @@ export const Overview: FC = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography fontWeight={"bold"} variant="h1">
-            Key contributing genes
+            Key reports
           </Typography>
         </Grid>
         <Grid item xs={4}>
@@ -82,7 +82,7 @@ export const Overview: FC = () => {
           </Box>
         </Grid>
       </Grid>
-      <Stack>
+      {/* <Stack>
         <Button
           component={Link}
           to="/recommendation"
@@ -92,7 +92,7 @@ export const Overview: FC = () => {
         >
           View Recommendations
         </Button>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 };

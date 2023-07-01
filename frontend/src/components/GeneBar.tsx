@@ -32,12 +32,12 @@ export const GeneBar: FC<GeneBarProps> = ({
       <Typography variant="body1" sx={{ flex: 1 }}>
         ...
       </Typography>
-      {fullInfo && (
+      {/* {fullInfo && (
         <Typography variant="body1" sx={{ flex: 1 }}>
           {risk_factors.significance}
         </Typography>
-      )}
-      <Rating sx={{ flex: 1 }} name="read-only" value={4} readOnly />
+      )} */}
+      <Rating sx={{ flex: 1 }} name="read-only" value={risk_factors.evidence} readOnly />
     </Stack>
   );
 };

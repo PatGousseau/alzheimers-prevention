@@ -30,6 +30,27 @@ class AlzheimerRiskProfiler:
         self.overall_risk_percentile = 0
         self.risk_percentile_with_intervention = 0
         self.gender = 'Male'
+
+    def get_risk(self):
+        """
+        Checks against a database of known risk multipliers and the risk multipliers from various APOE4 combinations.
+        :return: Overall risk increase as a percentage (float)
+        """
+        lines = self.file.readlines()
+
+        genome_dict = {}
+        for line in lines:
+            line = line.decode('utf-8')
+            if line.startswith('rs'):
+                rsid, chromosome, position, genotype = line.split()
+                genome_dict[rsid] = genotype
+
+        self.get_apoe_risk(genome_dict)
+        # self.get_apoe_modifiers(genome_dict)
+        prs = self.get_prs(genome_dict)
+        self.prs_percentile = self.calculate_prs_percentile(prs)
+        self.get_overall_risk(prs,genome_dict)
+        self.get_risk_with_intervention(round(self.overall_risk_percentile),self.gender)
         
 
     def increment_risk(self, risk_ratio):
@@ -113,6 +134,7 @@ class AlzheimerRiskProfiler:
             genotype=apoe_genotype,
             gene_name='APOE',
             significance=1.00e-300,
+            evidence=5,
         ))
 
 
@@ -173,27 +195,17 @@ class AlzheimerRiskProfiler:
                 gene_name=gene_name,
                 significance=significance,
             ))
+    
+    def calculate_evidence_level(self, p_value):
+            if p_value >= 10:
+                return 4
+            elif p_value >= 5:
+                return 3
+            elif p_value >= 2.5:
+                return 2
+            else:
+                return 1
 
-    def get_risk(self):
-        """
-        Checks against a database of known risk multipliers and the risk multipliers from various APOE4 combinations.
-        :return: Overall risk increase as a percentage (float)
-        """
-        lines = self.file.readlines()
-
-        genome_dict = {}
-        for line in lines:
-            line = line.decode('utf-8')
-            if line.startswith('rs'):
-                rsid, chromosome, position, genotype = line.split()
-                genome_dict[rsid] = genotype
-
-        self.get_apoe_risk(genome_dict)
-        # self.get_apoe_modifiers(genome_dict)
-        prs = self.get_prs(genome_dict)
-        self.prs_percentile = self.calculate_prs_percentile(prs)
-        self.get_overall_risk(prs,genome_dict)
-        self.get_risk_with_intervention(round(self.overall_risk_percentile),self.gender)
     
     def calculate_prs_percentile(self,sample):
         """
@@ -231,6 +243,7 @@ class AlzheimerRiskProfiler:
                         genotype=user_genotype,
                         gene_name=gene_name,
                         significance=weight,
+                        evidence=self.calculate_evidence_level(PRS_GENES[rsid]['p_value'])
                     ))    
   
             except KeyError:

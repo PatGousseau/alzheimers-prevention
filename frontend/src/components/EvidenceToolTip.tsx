@@ -25,11 +25,11 @@ export default function EvidenceToolTip() {
       <HtmlTooltip
         title={
             <React.Fragment>
-            <Typography variant='body1'>1 star: Genome Wide Significance (p) {'>'} 5 × 10−8</Typography>
-            <Typography variant='body1'>2 stars: p {'>'} 5 × 10−8</Typography>
-            <Typography variant='body1'>3 stars: p {'>'} 5 × 10−15</Typography>
-            <Typography variant='body1'>4 stars: p {'>'} 5 × 10−20</Typography>
-            <Typography variant='body1'>5 stars: p {'>'} 5 × 10−30</Typography>
+            <Typography variant='body1'>1 star: Genome Wide Significance (p) {'<'} 2.5</Typography>
+            <Typography variant='body1'>2 stars: p  {'>'} 10</Typography>
+            <Typography variant='body1'>3 stars: p {'>'} 2.5 & p {'<'} 5</Typography>
+            <Typography variant='body1'>4 stars: p {'>'} 5 & p {'<'} 10</Typography>
+            <Typography variant='body1'>5 stars: p  {'>'} 10</Typography>
           </React.Fragment>
         }
       >
