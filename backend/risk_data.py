@@ -78,6 +78,6 @@ APOE_GENES = dict(
 )
 
 PARKINSONS_GENES = dict(
-    rs34637584=dict(risk_allele='A',  weight=0.07, risk_ratio=1.03, frequency=0.07, gene_name='LRRK2', p_value=1),
-    rs76763715=dict(risk_allele='C', weight=0.14, risk_ratio=-0.47, frequency=0.14, gene_name='GBA', p_value=1),
+    rs34637584=dict(risk_allele='A',  weight=0.07, risk_ratio=1.03, frequency=0.07, gene_name='LRRK2', p_value=7), # p_value hard-coded to have 4 stars
+    rs76763715=dict(risk_allele='C', weight=0.14, risk_ratio=-0.47, frequency=0.14, gene_name='GBA', p_value=7), # p_value had_coded to have 4 stars
 )

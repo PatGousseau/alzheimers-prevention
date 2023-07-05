@@ -216,15 +216,22 @@ class AlzheimerRiskProfiler:
             ))
     
     def calculate_evidence_level(self, p_value):
-            if p_value >= 10:
+            if p_value >= 5:
                 return 4
-            elif p_value >= 5:
-                return 3
             elif p_value >= 2.5:
+                return 3
+            elif p_value >= 1:
                 return 2
             else:
                 return 1
 
+    def get_prs_gene_implication(self, weight):
+            if weight > 0:
+                return "Increased risk"
+            elif weight < 0:
+                return "Decreased risk"
+            else:
+                return "No risk impact"
     
     def calculate_prs_percentile(self,sample):
         """
@@ -299,7 +306,7 @@ class AlzheimerRiskProfiler:
                         gene_name=gene_name,
                         significance=weight,
                         evidence=self.calculate_evidence_level(PRS_GENES[rsid]['p_value']),
-                        implication='...',
+                        implication=self.get_prs_gene_implication(risk_ratio),
 
                     ))    
   
