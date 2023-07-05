@@ -9,6 +9,7 @@ import { Recommendation } from './pages/Recommendation';
 import { Routes, Route } from 'react-router-dom';
 import { Upload } from './pages/Upload';
 import { GeneProvider } from './context/geneContext';
+import { Survey } from './pages/Survey';
 
 
 function App() {
@@ -66,7 +67,8 @@ function App() {
       <GlobalStyles styles={{ body: { backgroundColor: "#FDFEFE" } }} />
       <GeneProvider>
         <Routes>
-          <Route path="/" element={<Upload />} />
+          <Route path="/" element={<Survey />} />
+          {/* <Route path="/" element={<Upload />} /> */}
           <Route path="/overview" element={<Overview />} />
           <Route path="/polygenic-risk-score" element={<PolygenicRiskScore />} />
           <Route path="/apoe-status" element={<APOEStatus />} />
