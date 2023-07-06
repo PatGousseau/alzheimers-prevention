@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import InfoIcon from '@mui/icons-material/Info';
+import { FC, ReactNode } from 'react';
 
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -11,30 +12,23 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#343739',
     color: '#FDFEFE',
-     maxWidth: 2000,
+     maxWidth: 442,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
     padding: theme.spacing(2),
     borderRadius: theme.spacing(1),
   },
 }));
+interface ToolTipProps {
+  text: ReactNode;
+}
 
-export default function EvidenceToolTip() {
+export const EvidenceToolTip: FC<ToolTipProps> = ({ text }) => {
+
   return (
     <div>
-      <HtmlTooltip
-        title={
-            <React.Fragment>
-            <Typography variant='body1'>1 star: Genome Wide Significance (p) {'<'} 1</Typography>
-            <Typography variant='body1'>2 stars: p  {'>'} 2.5 & p {'<'} 5</Typography>
-            <Typography variant='body1'>3 stars: p {'>'} 2.5 & p {'<'} 5</Typography>
-            <Typography variant='body1'>4 stars: p {'>'} 5 & p {'<'} 10</Typography>
-            <Typography variant='body1'>5 stars: p  {'>'} 10</Typography>
-          </React.Fragment>
-        }
-      >
-        {/* <Button>HTML</Button> */}
-        <InfoIcon color="primary"/>
+      <HtmlTooltip title={text}>
+        <InfoIcon color="primary" />
       </HtmlTooltip>
     </div>
   );

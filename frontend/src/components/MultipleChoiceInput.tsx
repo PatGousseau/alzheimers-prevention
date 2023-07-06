@@ -1,33 +1,36 @@
-import { ButtonBase, Stack, Typography } from "@mui/material";
-import { FC, ReactNode, useContext } from "react";
+import { Button, ButtonBase, ButtonGroup, Radio, RadioGroup, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { FC, ReactNode, useContext, useState } from "react";
 import { ReactComponent as HappyFace } from "../assets/happy_face.svg";
 import { GeneContext } from "../context/geneContext";
 import { getColour } from "../utils/utils";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-interface QuestionProps {
-  header: string;
-  subheader: string;
-  questionNum: number;
-  question: string;
-  children: ReactNode;
+interface MultipleChoiceInputProps {
+  options: string[];
+
 }
 
-export const Question: FC<QuestionProps> = ({ header, subheader, questionNum, question, children }) => {
+export const MultipleChoiceInput: FC<MultipleChoiceInputProps> = ({ options  }) => {
+
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+    const handleOptionClick = (option: string) => {
+      setSelectedOption(option);
+    };
 
   return (
-    <Stack
-      spacing={2}
-    >
-
-        <Typography>{header}</Typography>
-        <Typography>{subheader}</Typography>
-        <Typography>Question {questionNum}</Typography>
-        <Typography>{question}</Typography>
-        {children}
-        
-  
-    </Stack>
+    <Stack spacing={2} direction="column">
+      {options.map((option) => (
+        <Button
+          key={option}
+          variant={selectedOption === option ? 'contained' : 'outlined'}
+          onClick={() => handleOptionClick(option)}
+          sx={{ width: '400px', textTransform: 'none' }}
+        >
+          {option}
+        </Button>
+      ))}
+    </Stack>   
   );
 };

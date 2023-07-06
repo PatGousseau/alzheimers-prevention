@@ -10,6 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Upload } from './pages/Upload';
 import { GeneProvider } from './context/geneContext';
 import { Survey } from './pages/Survey';
+import { SurveyProvider } from './context/surveyContext';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles styles={{ body: { backgroundColor: "#FDFEFE" } }} />
+      <SurveyProvider>
       <GeneProvider>
         <Routes>
           <Route path="/" element={<Survey />} />
@@ -79,6 +81,7 @@ function App() {
           <Route path="/recommendation" element={<Recommendation />} />
         </Routes>
       </GeneProvider>
+      </SurveyProvider>
     </ThemeProvider>
   );
 }

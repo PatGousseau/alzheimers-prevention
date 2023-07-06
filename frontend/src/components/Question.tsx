@@ -5,31 +5,29 @@ import { GeneContext } from "../context/geneContext";
 import { getColour } from "../utils/utils";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { EvidenceToolTip } from "./EvidenceToolTip";
 
 interface QuestionProps {
-  header: string;
-  subheader: string;
-  questionNum: number;
+
   question: string;
+  tooltipText: string;
   children: ReactNode;
 }
 
-export const Question: FC<QuestionProps> = ({ header, subheader, questionNum, question, children }) => {
+
+
+export const Question: FC<QuestionProps> = ({ question, tooltipText, children }) => {
 
   return (
     <Stack
       spacing={2}
+      sx={{mt:8}}
     >
-        <Typography>{header}</Typography>
-        <Typography>{subheader}</Typography>
-        <Typography>Question {questionNum}</Typography>
+        <Stack direction={"row"}>
         <Typography>{question}</Typography>
+        <EvidenceToolTip text={<Typography>{tooltipText}</Typography>}></EvidenceToolTip>
+        </Stack>
         {children}
-        <label >
-        Text input: <input name="myInput" />
-      </label>
-  <Input>
-  </Input>
     </Stack>
   );
 };

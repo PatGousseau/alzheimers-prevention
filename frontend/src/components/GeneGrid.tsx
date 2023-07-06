@@ -1,7 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import { GeneBar } from "../components/GeneBar";
-import EvidenceToolTip from "../components/EvidenceToolTip";
+import {EvidenceToolTip} from "../components/EvidenceToolTip";
 import { RiskFactor } from "../context/geneContext";
+import React from "react";
 
 export const GeneGrid = (props: {
   header?: string;
@@ -43,7 +44,25 @@ export const GeneGrid = (props: {
 
         <Stack direction="row" spacing={1} sx={{ flex: 1 }}>
           <Typography variant="h5">Evidence</Typography>
-          <EvidenceToolTip />
+          <EvidenceToolTip
+            text={
+              <React.Fragment>
+                <Typography variant="body1">
+                  1 star: Genome Wide Significance (p) {"<"} 1
+                </Typography>
+                <Typography variant="body1">
+                  2 stars: p {">"} 2.5 & p {"<"} 5
+                </Typography>
+                <Typography variant="body1">
+                  3 stars: p {">"} 2.5 & p {"<"} 5
+                </Typography>
+                <Typography variant="body1">
+                  4 stars: p {">"} 5 & p {"<"} 10
+                </Typography>
+                <Typography variant="body1">5 stars: p {">"} 10</Typography>
+              </React.Fragment>
+            }
+          />
         </Stack>
       </Stack>
       <Stack sx={{ justifyContent: "center" }}>

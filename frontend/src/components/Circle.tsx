@@ -4,9 +4,10 @@ interface CircleProps {
   percentage: number;
   size: number;
   colour: string;
+  style?:React.CSSProperties;
 }
 
-export const Circle: React.FC<CircleProps> = ({ percentage, size, colour }) => {
+export const Circle: React.FC<CircleProps> = ({ percentage, size, colour, style }) => {
   const radius = size / 2;
   const circumference = 2 * Math.PI * radius;
 
@@ -29,7 +30,7 @@ export const Circle: React.FC<CircleProps> = ({ percentage, size, colour }) => {
   };
 
   return (
-    <div style={circleStyle}>
+    <div style={style}>
       <div style={textStyle}>{`${percentage}%`}</div>
     </div>
   );
