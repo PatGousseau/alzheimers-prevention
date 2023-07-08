@@ -66,6 +66,9 @@ export const Upload: FC = () => {
     }
   };
 
+  const handleTakeSurvey = () => {
+    navigate("/survey",{state:{startBatchIndex:0}})
+  }
   return (
     <Stack sx={{ m: 4 }}>
       <Typography variant="h1">Genetic Analyzer</Typography>
@@ -93,7 +96,7 @@ export const Upload: FC = () => {
         {isLoading ? (
           <CircularProgress size={24} />
         ) : (
-            <Button
+            <><Button
               variant="contained"
               component="label"
               sx={{ width: "fit-content" }}
@@ -101,7 +104,15 @@ export const Upload: FC = () => {
             >
               Browse
               <input hidden multiple type="file" onChange={handleInputChange} />
-            </Button>
+            </Button><Button
+              variant="contained"
+              component="label"
+              sx={{ width: "fit-content" }}
+              disabled={isLoading}
+              onClick={handleTakeSurvey}
+            >
+                Take survey
+              </Button></>
         )}
         {error && (
           <Alert severity="error" sx={{ mt: 4 }}>

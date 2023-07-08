@@ -30,26 +30,12 @@ const CircleFormation: React.FC = () => {
         return (
           <>
 
-            <CircleWithRing width={circleSize} height={circleSize} top={circleY} left={circleX} header={interim_score.header} letter={interim_score.letter}  />
+            <CircleWithRing width={circleSize} height={circleSize} top={circleY} left={circleX} header={interim_score.header} letter={interim_score.letter} color={'#4F7F72'}  />
           </>
         );
       })}
 
-
-        <LetterCircle
-          style={{
-            position: "absolute",
-            width: 150,
-            height: 150,
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            top: containerSize - containerSize / 2 - 17,
-            left: containerSize - containerSize / 2 - 17,
-          }}
-        />
-        <CircleWithRing width={150} height={150} top={containerSize - containerSize / 2 - 17} left={containerSize - containerSize / 2 - 17} header={'Brain ealth'} letter={''}  />
+        <CircleWithRing width={150} height={150} top={containerSize - containerSize / 2 - 17} left={containerSize - containerSize / 2 - 17} header={'Brain Health'} letter={''} color={'#4F7F72'}  />
     </div>
   );
 };

@@ -11,10 +11,22 @@ import { EvidenceToolTip } from "../components/EvidenceToolTip";
 import { Circle } from "../components/Circle";
 import CircleWithRing from "../components/CircleWithRing";
 import {ReactComponent as Lightbulb} from "../assets/light-bulb.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export const ProvisionalResults: FC = () => {
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+
+  const handleNextClick = () => {
+
+        navigate('/survey',{state:{startBatchIndex:location.state.currentBatchIndex + 1}})
+
+
+
+  };
 
   return (
     <Stack sx={{ m: 4 }}>
@@ -41,10 +53,9 @@ export const ProvisionalResults: FC = () => {
           <Stack direction={"row"}>
             <CircleWithRing
               header={"Vascular Health"}
-              letter={"B"}
+              letter={location.state.letter}
               width={289}
-              height={289}
-            />
+              height={289} color={"#4F7F72"}            />
             <Typography variant="h1">
               What's good for the brain is good for the heart.
             </Typography>
@@ -69,6 +80,9 @@ export const ProvisionalResults: FC = () => {
 </Stack>
         </Grid>
       </Grid>
+      <Button variant="contained" onClick={handleNextClick}>
+          Skip
+        </Button>
     </Stack>
   );
 };

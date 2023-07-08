@@ -4,6 +4,8 @@ import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GeneContext } from "../context/geneContext";
 
+
+
 export const SurveyEnd: FC = () => {
 
 

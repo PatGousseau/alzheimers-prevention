@@ -8,6 +8,7 @@ interface CircleWithRingProps {
   height: number;
   top?: number;
   left?: number;
+  color: string;
 }
 
 const CircleWithRing: React.FC<CircleWithRingProps> = ({
@@ -17,6 +18,7 @@ const CircleWithRing: React.FC<CircleWithRingProps> = ({
   height,
   top,
   left,
+  color,
 }) => {
   const circleStyle: React.CSSProperties = {
     position: "absolute",
@@ -38,7 +40,7 @@ const CircleWithRing: React.FC<CircleWithRingProps> = ({
     width: width * ringSize,
     height: height * ringSize,
     borderRadius: "50%",
-    border: `${width * (1 - ringSize - 0.05)}px solid #4F7F72`, // Adjust the border size as needed
+    border: `${width * (1 - ringSize - 0.05)}px solid ${color}`, // Adjust the border size as needed
     boxSizing: "border-box",
     backgroundColor: "transparent",
     display: "flex",
