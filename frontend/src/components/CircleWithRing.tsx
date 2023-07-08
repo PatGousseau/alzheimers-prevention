@@ -6,8 +6,8 @@ interface CircleWithRingProps {
   letter: string;
   width: number;
   height: number;
-  top: number;
-  left: number;
+  top?: number;
+  left?: number;
 }
 
 const CircleWithRing: React.FC<CircleWithRingProps> = ({

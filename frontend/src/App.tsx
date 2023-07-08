@@ -11,6 +11,7 @@ import { Upload } from './pages/Upload';
 import { GeneProvider } from './context/geneContext';
 import { Survey } from './pages/Survey';
 import { SurveyProvider } from './context/surveyContext';
+import { ProvisionalResults } from './pages/ProvisionalResults';
 
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
       },
       h1: {
         fontSize: 32,
+        fontWeight: 'bold',
+      },
+      h2: {
+        fontSize: 29,
         fontWeight: 'bold',
       },
       h3: {
@@ -69,7 +74,8 @@ function App() {
       <SurveyProvider>
       <GeneProvider>
         <Routes>
-          <Route path="/" element={<Survey />} />
+        <Route path="/" element={<ProvisionalResults />} />
+          {/* <Route path="/" element={<Survey />} /> */}
           {/* <Route path="/" element={<Upload />} /> */}
           <Route path="/overview" element={<Overview />} />
           <Route path="/polygenic-risk-score" element={<PolygenicRiskScore />} />

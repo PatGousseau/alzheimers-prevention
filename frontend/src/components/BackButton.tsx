@@ -13,7 +13,7 @@ const BackButton = () => {
   };
 
   return (
-    <Stack direction="row" justifyContent="flex-start">
+    <Stack direction="row" justifyContent="flex-start" sx={{mb:2}}>
       <Button
         size="medium"
         startIcon={<ArrowBackIosNewIcon />}
