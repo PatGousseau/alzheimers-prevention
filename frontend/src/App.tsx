@@ -74,8 +74,8 @@ function App() {
       <SurveyProvider>
       <GeneProvider>
         <Routes>
-        <Route path="/" element={<ProvisionalResults />} />
-          {/* <Route path="/" element={<Survey />} /> */}
+        {/* <Route path="/" element={<ProvisionalResults />} /> */}
+          <Route path="/" element={<Survey />} />
           {/* <Route path="/" element={<Upload />} /> */}
           <Route path="/overview" element={<Overview />} />
           <Route path="/polygenic-risk-score" element={<PolygenicRiskScore />} />

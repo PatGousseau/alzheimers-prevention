@@ -12,6 +12,7 @@ interface QuestionProps {
   question: string;
   tooltipText: string;
   children: ReactNode;
+  onAnswerSelection: () => void;
 }
 
 

@@ -8,15 +8,17 @@ import "react-circular-progressbar/dist/styles.css";
 
 interface MultipleChoiceInputProps {
   options: string[];
-
+  onClick: () => void;
 }
 
-export const MultipleChoiceInput: FC<MultipleChoiceInputProps> = ({ options  }) => {
+export const MultipleChoiceInput: FC<MultipleChoiceInputProps> = ({ options, onClick  }) => {
 
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
     const handleOptionClick = (option: string) => {
       setSelectedOption(option);
+      onClick();
+      
     };
 
   return (
