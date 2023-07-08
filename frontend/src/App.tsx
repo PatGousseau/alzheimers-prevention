@@ -12,6 +12,7 @@ import { GeneProvider } from './context/geneContext';
 import { Survey } from './pages/Survey';
 import { SurveyProvider } from './context/surveyContext';
 import { ProvisionalResults } from './pages/ProvisionalResults';
+import { SurveyEnd } from './pages/SurveyEnd';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
             element={<DementiaRiskFactors />}
           />
           <Route path="/recommendation" element={<Recommendation />} />
+          <Route path="/survey-end" element={<SurveyEnd />} />
         </Routes>
       </GeneProvider>
       </SurveyProvider>

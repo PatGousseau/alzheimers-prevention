@@ -5,8 +5,10 @@ import { MultipleChoiceInput } from "../components/MultipleChoiceInput";
 import BackButton from "../components/BackButton";
 import { ProgressBar } from "../components/ProgressBar";
 import CircleFormation from "../components/CircleFormation";
+import { useNavigate } from "react-router-dom";
 
 export const Survey = () => {
+  const navigate = useNavigate();
   const questionsData = [
     {
       question: "Do you have a parent who has ever been diagnosed with dementia?",
@@ -38,8 +40,7 @@ export const Survey = () => {
     if (currentQuestionIndex < questionsData.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // Handle survey completion or next step
-      // e.g., navigate to the next page, submit the answers, etc.
+      navigate('/survey-end', { replace: true });
     }
   };
 
