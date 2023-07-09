@@ -10,6 +10,21 @@ export const getColour = (value:number) => {
       : "#4F7F72";
   }
 
+  export const getRingColour = (letter:string) => {
+    switch (letter) {
+      case "A":
+        return "#4F7F72 ";
+      case "B":
+        return "#EBB502";
+      case "C":
+        return"#EBB502";
+      case "D":
+        return "#FF7272";
+      default:
+        return "#FF7272";
+  }
+}
+
   export const getApoeStyles = (apoeStatus:string): { colour: string; value: number } => {
     let colour = '';
     let value = 0;
@@ -70,5 +85,4 @@ export const getColour = (value:number) => {
   
     return { header, text };
   }
-  
   

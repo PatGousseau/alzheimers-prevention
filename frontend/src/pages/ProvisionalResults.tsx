@@ -12,6 +12,9 @@ import { Circle } from "../components/Circle";
 import CircleWithRing from "../components/CircleWithRing";
 import {ReactComponent as Lightbulb} from "../assets/light-bulb.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getRingColour } from "../utils/utils";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 export const ProvisionalResults: FC = () => {
@@ -25,11 +28,9 @@ export const ProvisionalResults: FC = () => {
   
 
   const handleNextClick = () => {
-
-        navigate('/survey',{state:{startBatchIndex:location.state.currentBatchIndex + 1}})
-
-
-
+    navigate("/survey", {
+      state: { startBatchIndex: location.state.currentBatchIndex + 1 },
+    });
   };
 
   return (
@@ -37,7 +38,7 @@ export const ProvisionalResults: FC = () => {
       <BackButton />
       <Stack
         direction="row"
-        sx={{ mb: 8, mt:2, alignItems: "flex-end", alignContent: "flex-end" }}
+        sx={{ mb: 8, mt: 2, alignItems: "flex-end", alignContent: "flex-end" }}
       >
         <Typography variant="h2" sx={{ mr: 1 }}>
           Provisional Result
@@ -50,7 +51,7 @@ export const ProvisionalResults: FC = () => {
         />
       </Stack>
 
-      <Grid container spacing={0  } sx={{ pb: 0}}>
+      <Grid container spacing={0} sx={{ pb: 0 }}>
         <Grid
           item
           xs={6.5}
@@ -62,13 +63,16 @@ export const ProvisionalResults: FC = () => {
             justifyContent: "center",
           }}
         >
-          <Stack direction="row" sx={{ alignItems: "center", display: "flex", ml:4, my:8}}>
+          <Stack
+            direction="row"
+            sx={{ alignItems: "center", display: "flex", ml: 4, my: 8 }}
+          >
             <Stack>
               <CircleWithRing
                 header={"Vascular Health"}
                 letter={location.state.letter}
                 size={289}
-                color={"#4F7F72"}
+                color={getRingColour(location.state.letter)}
                 circleType="provisionalResult"
               />
             </Stack>
@@ -108,11 +112,16 @@ export const ProvisionalResults: FC = () => {
         <Button
           variant="outlined"
           sx={{ marginRight: "8px" }}
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={handleReviewSection}
         >
           Review Section
         </Button>
-        <Button variant="contained" onClick={handleNextClick}>
+        <Button
+          variant="contained"
+          onClick={handleNextClick}
+          endIcon={<ArrowForwardIosIcon />}
+        >
           Continue
         </Button>
       </Stack>

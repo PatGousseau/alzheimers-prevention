@@ -6,6 +6,8 @@ import BackButton from "../components/BackButton";
 import { ProgressBar } from "../components/ProgressBar";
 import CircleFormation from "../components/CircleFormation";
 import { useLocation, useNavigate } from "react-router-dom";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 interface SurveyProps {
   startQuestionIndex: number;
@@ -115,18 +117,18 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
           } } />}
           tooltipText={currentQuestion.tooltipText}
           onAnswerSelection={handleAnswerSelection} header={currentQuestion.header}        />
-        <CircleFormation />
+        {/* <CircleFormation /> */}
       </Stack>
       <Stack direction={"row"} sx={{marginLeft: 'auto', mt:16}}>
       {currentQuestionIndex > 0 && (
         
-        <Button variant="outlined" sx={{ marginRight: '8px'}} onClick={handlePreviousButton}>
+        <Button variant="outlined" sx={{ marginRight: '8px'}} onClick={handlePreviousButton} startIcon={<ArrowBackIosNewIcon />}>
           Previous
         </Button>
         )}
       {currentQuestionIndex < allQuestions[currentBatchIndex].length && (
         
-        <Button variant="contained" onClick={handleAnswerSelection}>
+        <Button variant="contained" onClick={handleAnswerSelection} endIcon={<ArrowForwardIosIcon />}>
           Skip
         </Button>
         )}

@@ -62,7 +62,7 @@ size,
     <div style={circleStyle}>
       <div style={ringStyle}>
         <Typography variant='h4' sx={{textAlign:"center"}}>{header}</Typography>
-        <Typography>{letter}</Typography>
+        <Typography color={color} variant='h1' sx={{mt:2}}>{letter}</Typography>
       </div>
     </div>
   );
