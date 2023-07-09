@@ -40,7 +40,7 @@ function App() {
       },
       h3: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: '500',
       },
       h4: {
         fontSize: 22,
@@ -49,6 +49,10 @@ function App() {
       h5: {
         fontSize: 16,
         fontWeight: 'bold',
+      },
+      h6: {
+        fontSize: 26,
+        fontWeight: '500',
       },
       body1: {
         fontSize: 16,

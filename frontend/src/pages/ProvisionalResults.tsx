@@ -18,6 +18,10 @@ export const ProvisionalResults: FC = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleReviewSection = () => {
+    navigate(-1);
+  };
   
 
   const handleNextClick = () => {
@@ -31,58 +35,87 @@ export const ProvisionalResults: FC = () => {
   return (
     <Stack sx={{ m: 4 }}>
       <BackButton />
-      <Stack direction={"row"} sx={{mb:8}}>
-        <Typography variant="h1">Provisional Result</Typography>
+      <Stack
+        direction="row"
+        sx={{ mb: 8, mt:2, alignItems: "flex-end", alignContent: "flex-end" }}
+      >
+        <Typography variant="h2" sx={{ mr: 1 }}>
+          Provisional Result
+        </Typography>
         <EvidenceToolTip
+          black={true}
           text={
             "This rapid health assessment is meant to provide you with a high level sense of your health risk. To get a more accurate understanding of your health, you may also take our in-depth risk assessment, which takes in additional information like lab results and genetic tests."
           }
         />
       </Stack>
 
-      <Grid container spacing={2} sx={{ pb: 4 }}>
+      <Grid container spacing={0  } sx={{ pb: 0}}>
         <Grid
           item
-          xs={8}
+          xs={6.5}
           sx={{
             boxShadow: 3,
             borderRadius: "16px",
-            height: "423px",
+            marginRight: 4,
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <Stack direction={"row"}>
-            <CircleWithRing
-              header={"Vascular Health"}
-              letter={location.state.letter}
-              width={289}
-              height={289} color={"#4F7F72"}            />
-            <Typography variant="h1">
+          <Stack direction="row" sx={{ alignItems: "center", display: "flex", ml:4, my:8}}>
+            <Stack>
+              <CircleWithRing
+                header={"Vascular Health"}
+                letter={location.state.letter}
+                size={289}
+                color={"#4F7F72"}
+                circleType="provisionalResult"
+              />
+            </Stack>
+            <Typography variant="h1" sx={{ paddingX: 8 }}>
               What's good for the brain is good for the heart.
             </Typography>
           </Stack>
         </Grid>
+
         <Grid
           item
-          xs={4}
+          xs={4.5}
           sx={{ boxShadow: 3, borderRadius: "8px", backgroundColor: "#4F7F72" }}
         >
-<Stack sx={{ justifyContent: "center", padding:2 }}>
-  <Stack direction="row" alignItems="center" pb={4}>
-    <Lightbulb />
-    <Typography variant="h2" color="#FFFFFF">
-      Did you know...
-    </Typography>
-  </Stack>
+          <Stack sx={{ justifyContent: "center", padding: 4 }}>
+            <Stack direction="row" alignItems="center" pb={4}>
+              <Lightbulb />
+              <Typography
+                fontWeight={"normal"}
+                variant="h2"
+                color="#FFFFFF"
+                sx={{ ml: 4 }}
+              >
+                Did you know...
+              </Typography>
+            </Stack>
 
-  <Typography variant="h3" color="#FFFFFF">
-    Poor vascular health can reduce blood flow to the brain, break down the blood-brain barrier, and damage blood vessels in the brain, leading to increased risk for dementia.
-  </Typography>
-</Stack>
+            <Typography variant="h3" color="#FFFFFF">
+              Poor vascular health can reduce blood flow to the brain, break
+              down the blood-brain barrier, and damage blood vessels in the
+              brain, leading to increased risk for dementia.
+            </Typography>
+          </Stack>
         </Grid>
       </Grid>
-      <Button variant="contained" onClick={handleNextClick}>
-          Skip
+      <Stack direction={"row"} sx={{ marginLeft: "auto", mt: 8 }}>
+        <Button
+          variant="outlined"
+          sx={{ marginRight: "8px" }}
+          onClick={handleReviewSection}
+        >
+          Review Section
         </Button>
+        <Button variant="contained" onClick={handleNextClick}>
+          Continue
+        </Button>
+      </Stack>
     </Stack>
   );
 };
