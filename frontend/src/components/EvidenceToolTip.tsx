@@ -21,14 +21,15 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 interface ToolTipProps {
   text: ReactNode;
+  black?: boolean;
 }
 
-export const EvidenceToolTip: FC<ToolTipProps> = ({ text }) => {
-
+export const EvidenceToolTip: FC<ToolTipProps> = ({ text, black }) => {
+  const toolTipColor = black ? "inherit" : "primary";
   return (
     <div>
       <HtmlTooltip title={text}>
-        <InfoIcon color="primary" />
+        <InfoIcon color={toolTipColor} />
       </HtmlTooltip>
     </div>
   );

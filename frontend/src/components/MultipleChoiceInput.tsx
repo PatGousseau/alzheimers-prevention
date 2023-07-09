@@ -22,15 +22,15 @@ export const MultipleChoiceInput: FC<MultipleChoiceInputProps> = ({ options, onC
     };
 
   return (
-    <Stack spacing={2} direction="column">
+    <Stack spacing={2} direction="column" sx={{pt:2}}>
       {options.map((option) => (
         <Button
           key={option}
           variant={selectedOption === option ? 'contained' : 'outlined'}
           onClick={() => handleOptionClick(option)}
-          sx={{ width: '400px', textTransform: 'none' }}
+          sx={{ width: '400px', textTransform: 'none', borderRadius: "8px" }}
         >
-          {option}
+          <Typography fontWeight={"bold"}>{option}</Typography> 
         </Button>
       ))}
     </Stack>   

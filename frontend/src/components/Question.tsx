@@ -8,7 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { EvidenceToolTip } from "./EvidenceToolTip";
 
 interface QuestionProps {
-
+  header: string;
   question: string;
   tooltipText: string;
   children: ReactNode;
@@ -17,16 +17,17 @@ interface QuestionProps {
 
 
 
-export const Question: FC<QuestionProps> = ({ question, tooltipText, children }) => {
+export const Question: FC<QuestionProps> = ({ header, question, tooltipText, children }) => {
 
   return (
     <Stack
       spacing={2}
-      sx={{mt:8}}
+      sx={{mt:4}}
     >
-        <Stack direction={"row"}>
-        <Typography>{question}</Typography>
-        <EvidenceToolTip text={<Typography>{tooltipText}</Typography>}></EvidenceToolTip>
+        <Typography fontWeight={"bold"} variant="h2" sx={{color:"#4F7F72"}}>{header}</Typography>
+        <Stack direction={"row"} sx={{ pt:1}}>
+          <Typography variant="h4" sx={{pr:1}} >{question}</Typography>
+          <EvidenceToolTip black={true} text={<Typography>{tooltipText}</Typography>}></EvidenceToolTip>
         </Stack>
         {children}
     </Stack>

@@ -17,18 +17,21 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
   const location = useLocation();
   const firstBatch = [
     {
+      header: "Energy",
       question: "1Do you have a parent who has ever been diagnosed with dementia?",
-      options: ["yes", "no"],
+      options: ["Yes", "No", "Not sure"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
+      header: "Energy",
       question: "1Do you have a parent who has ever been diagnosed with dementia? 2222",
       options: ["yes", "no"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
+      header: "Energy",
       question: "1Do you have a parent who has ever been diagnosed with dementia? 3333",
       options: ["yes", "no"],
       tooltipText:
@@ -38,18 +41,21 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
 
   const secondBatch = [
     {
+      header: "Metabolism",
       question: "2Do you have a parent who has ever been diagnosed with dementia?",
       options: ["yes", "no"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
+      header: "Metabolism",
       question: "2Do you have a parent who has ever been diagnosed with dementia? 2222",
       options: ["yes", "no"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
+      header: "Metabolism",
       question: "2Do you have a parent who has ever been diagnosed with dementia? 3333",
       options: ["yes", "no"],
       tooltipText:
@@ -93,12 +99,13 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
   };
 
   const currentQuestion = allQuestions[currentBatchIndex][currentQuestionIndex];
+  const numQuestions = allQuestions.reduce((count, innerArray) => count + innerArray.length, 0);
 
   return (
     <Stack sx={{ m: 4 }}>
       <BackButton />
-      <Stack>
-        <ProgressBar variant="determinate" value={(currentQuestionIndex/allQuestions[currentBatchIndex].length) * 100} />
+      <Stack sx={{pt:1}}>
+        <ProgressBar variant="determinate" value={(currentQuestionIndex/numQuestions) * 100} />
       </Stack>
       <Stack direction="row">
         <Question
@@ -107,18 +114,17 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
             handleAnswerSelection();
           } } />}
           tooltipText={currentQuestion.tooltipText}
-          onAnswerSelection={handleAnswerSelection}
-        />
+          onAnswerSelection={handleAnswerSelection} header={currentQuestion.header}        />
         <CircleFormation />
       </Stack>
-      <Stack direction={"row"} sx={{width:"137px"}}>
+      <Stack direction={"row"} sx={{marginLeft: 'auto', mt:16}}>
       {currentQuestionIndex > 0 && (
         
-        <Button variant="contained" onClick={handlePreviousButton}>
+        <Button variant="outlined" sx={{ marginRight: '8px'}} onClick={handlePreviousButton}>
           Previous
         </Button>
         )}
-      {currentQuestionIndex < allQuestions[currentBatchIndex].length - 1 && (
+      {currentQuestionIndex < allQuestions[currentBatchIndex].length && (
         
         <Button variant="contained" onClick={handleAnswerSelection}>
           Skip
