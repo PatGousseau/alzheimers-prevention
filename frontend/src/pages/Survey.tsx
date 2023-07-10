@@ -19,23 +19,23 @@ export const Survey: FC<SurveyProps> = ({startBatchIndex, startQuestionIndex}) =
   const location = useLocation();
   const firstBatch = [
     {
-      header: "Energy",
-      question: "1Do you have a parent who has ever been diagnosed with dementia?",
-      options: ["Yes", "No", "Not sure"],
+      header: "Demographic",
+      question: "What is your age? [birth year]?",
+      options: ["<40", "40-54", "55-64","65-74", "75+"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
-      header: "Energy",
-      question: "1Do you have a parent who has ever been diagnosed with dementia? 2222",
-      options: ["yes", "no"],
+      header: "Demographic",
+      question: "What is your sex?",
+      options: ["Male", "Female", "Prefer not to answer"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
     {
-      header: "Energy",
-      question: "1Do you have a parent who has ever been diagnosed with dementia? 3333",
-      options: ["yes", "no"],
+      header: "Demographic",
+      question: "What is your race?",
+      options: ["Biracial/Multiracial // East Asian // Indigenous // Middle Eastern/North African // South Asian // White","Black/African American // Hispanic/Latino","Other // Prefer not to say"],
       tooltipText:
         "The ability to perform moderate exercise such as running or biking at a sustained pace for several minutes at a time helps us understand your cardiovascular health, which determines how well your brain is oxygenated.",
     },
